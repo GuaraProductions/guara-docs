@@ -1,35 +1,67 @@
-<header class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 dark:bg-[#111827]/95">
-  <div class="max-w-8xl mx-auto">
-    <div class="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
-      <div class="relative flex items-center">
-        
-        <a class="mr-3 flex-none overflow-hidden md:w-auto text-xl font-bold text-slate-900 dark:text-white hover:text-blue-500 transition-colors" href="/">
-          <span class="sr-only">Home</span>
-          {{ .Site.Title }}
-        </a>
+<header class="header-main">
+  <div class="header-container">
+    <a href="https://guaraproductions.github.io/guara-docs/" class="site-logo">
+      <span class="logo-icon">🚀</span>
+      {{ .Site.Title }}
+    </a>
 
-        <div class="relative hidden lg:flex items-center ml-auto">
-          <nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
-            <ul class="flex space-x-8">
-              <li><a href="/" class="hover:text-blue-500">Home</a></li>
-              <li><a href="/example" class="hover:text-blue-500">Exemplos</a></li>
-            </ul>
-          </nav>
-          
-          <div class="flex items-center border-l border-slate-200 ml-6 pl-6 dark:border-slate-800">
-            <button id="theme-toggle" class="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
-                <span class="dark:hidden">🌙</span>
-                <span class="hidden dark:inline">☀️</span>
-            </button>
-          </div>
-        </div>
-
-        <button type="button" class="ml-auto text-slate-500 w-8 h-8 flex items-center justify-center hover:text-slate-600 lg:hidden">
-          <span class="sr-only">Menu</span>
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-
-      </div>
-    </div>
+    <nav class="header-links">
+      <a href="https://guaraproductions.github.io/guara-docs/" class="nav-btn">Início</a>
+      </nav>
   </div>
 </header>
+
+<style>
+  .header-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    /* Destaque: Fundo levemente mais claro que a sidebar e borda vibrante */
+    background: #1f2937; 
+    border-bottom: 2px solid #3b82f6; 
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-container {
+    width: 100%;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .site-logo:hover {
+    transform: scale(1.02);
+  }
+
+  .nav-btn {
+    background: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .nav-btn:hover {
+    background: #2563eb;
+  }
+</style>

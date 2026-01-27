@@ -1,0 +1,11 @@
+baseURL = 'https://guaraproductions.github.io/guara-help-site/'
+languageCode = 'pt-br'
+title = 'Guara Help Site'
+
+[params]
+  description = "Um site estático para ajudar desenvolvedores no Godot"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -1,0 +1,119 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Simple Excalidraw-style diagram for testing -->
+  <defs>
+    <style>
+      text {
+        font-family: "Virgil", "Segoe UI Emoji";
+      }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#ffffff"/>
+  
+  <!-- Main Architecture Box -->
+  <rect x="50" y="50" width="200" height="150" 
+        fill="#a5d8ff" stroke="#1971c2" stroke-width="2" 
+        rx="5"/>
+  <text x="150" y="130" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="20" fill="#1971c2">
+    Hugo Site
+  </text>
+  
+  <!-- Excalidraw Files Box -->
+  <rect x="50" y="250" width="200" height="100" 
+        fill="#ffd8a8" stroke="#d9480f" stroke-width="2" 
+        rx="5"/>
+  <text x="150" y="305" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="16" fill="#d9480f">
+    .excalidraw files
+  </text>
+  
+  <!-- GitHub Actions Box -->
+  <rect x="300" y="250" width="200" height="100" 
+        fill="#d0bfff" stroke="#5f3dc4" stroke-width="2" 
+        rx="5"/>
+  <text x="400" y="295" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="16" fill="#5f3dc4">
+    GitHub Actions
+  </text>
+  <text x="400" y="315" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="14" fill="#5f3dc4">
+    (Convert to SVG)
+  </text>
+  
+  <!-- SVG Output Box -->
+  <rect x="550" y="250" width="200" height="100" 
+        fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" 
+        rx="5"/>
+  <text x="650" y="305" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="16" fill="#2f9e44">
+    .svg files
+  </text>
+  
+  <!-- Shortcode Box -->
+  <rect x="550" y="50" width="200" height="150" 
+        fill="#ffc9c9" stroke="#c92a2a" stroke-width="2" 
+        rx="5"/>
+  <text x="650" y="115" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="16" fill="#c92a2a">
+    Excalidraw
+  </text>
+  <text x="650" y="135" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="16" fill="#c92a2a">
+    Shortcode
+  </text>
+  <text x="650" y="155" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="12" fill="#c92a2a">
+    (Zoom + Pan)
+  </text>
+  
+  <!-- Arrow: Excalidraw to GitHub Actions -->
+  <path d="M 250 300 L 300 300" 
+        stroke="#495057" stroke-width="2" fill="none" 
+        marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow: GitHub Actions to SVG -->
+  <path d="M 500 300 L 550 300" 
+        stroke="#495057" stroke-width="2" fill="none" 
+        marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow: SVG to Shortcode -->
+  <path d="M 650 250 L 650 200" 
+        stroke="#495057" stroke-width="2" fill="none" 
+        marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow: Hugo to Shortcode -->
+  <path d="M 250 125 L 550 125" 
+        stroke="#495057" stroke-width="2" fill="none" 
+        marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrowhead marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" 
+            refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#495057"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" 
+        font-family="Virgil, sans-serif" font-size="24" 
+        font-weight="bold" fill="#212529">
+    Arquitetura Excalidraw + Hugo
+  </text>
+  
+  <!-- Notes -->
+  <text x="50" y="450" 
+        font-family="Virgil, sans-serif" font-size="14" fill="#495057">
+    • Diagramas criados em .excalidraw
+  </text>
+  <text x="50" y="475" 
+        font-family="Virgil, sans-serif" font-size="14" fill="#495057">
+    • Convertidos automaticamente para .svg
+  </text>
+  <text x="50" y="500" 
+        font-family="Virgil, sans-serif" font-size="14" fill="#495057">
+    • Embutidos com zoom/pan interativo
+  </text>
+</svg>

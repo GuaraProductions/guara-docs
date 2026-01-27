@@ -1,0 +1,73 @@
+name: Convert Excalidraw to SVG
+
+on:
+  push:
+    paths:
+      - '**.excalidraw'
+      - '.github/workflows/excalidraw-to-svg.yml'
+  pull_request:
+    paths:
+      - '**.excalidraw'
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Excalidraw CLI
+        run: |
+          npm install -g @excalidraw/cli
+          
+      - name: Find and convert Excalidraw files
+        run: |
+          # Find all .excalidraw files
+          find . -name "*.excalidraw" -type f | while read -r file; do
+            echo "Converting $file"
+            
+            # Get directory and filename
+            dir=$(dirname "$file")
+            filename=$(basename "$file" .excalidraw)
+            
+            # Determine output path
+            # If file is in static/diagrams or static/, keep it there
+            # Otherwise, move to static/diagrams/
+            if [[ "$dir" == ./static/* ]]; then
+              output_dir="$dir"
+            else
+              output_dir="./static/diagrams"
+              mkdir -p "$output_dir"
+            fi
+            
+            output_file="$output_dir/$filename.svg"
+            
+            # Convert to SVG
+            excalidraw-to-svg "$file" "$output_file"
+            
+            echo "Created $output_file"
+          done
+          
+      - name: Commit SVG files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add all SVG files in static/
+          git add static/**/*.svg || true
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No SVG files to commit"
+          else
+            git commit -m "Auto-convert Excalidraw files to SVG"
+            git push
+          fi

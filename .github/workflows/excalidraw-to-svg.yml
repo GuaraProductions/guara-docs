@@ -12,6 +12,8 @@ on:
 jobs:
   convert:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to commit and push SVG files
     
     steps:
       - name: Checkout repository

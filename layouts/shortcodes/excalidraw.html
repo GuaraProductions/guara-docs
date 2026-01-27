@@ -5,8 +5,9 @@
 {{ $src := .Get "src" }}
 {{ $w := .Get "width" | default "100%" }}
 {{ $h := .Get "height" | default "500px" }}
-{{ $seed := now.UnixNano }}
-{{ $id := printf "excalidraw-%d" $seed }}
+{{/* FIX: Usamos md5 para criar um hash alfanumérico seguro para JS */}}
+{{ $seed := now.UnixNano | md5 }} 
+{{ $id := printf "excalidraw-%s" $seed }}
 
 <div class="excalidraw-wrapper relative group border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors my-8">
   
@@ -38,30 +39,26 @@
   (function() {
     const obj = document.getElementById('{{ $id }}');
     
-    // Função para iniciar o PanZoom assim que o SVG carregar
     const init = () => {
-      // Verifica se a biblioteca foi carregada no baseof.html
       if (typeof svgPanZoom === 'undefined') {
         console.error('Biblioteca svg-pan-zoom não encontrada.');
         return;
       }
 
-      // Cria a instância global para os botões acessarem
+      // Variável global segura usando o hash MD5
       window.zoom{{ $seed }} = svgPanZoom('#{{ $id }}', {
         zoomEnabled: true,
-        controlIconsEnabled: false, // Usamos nossos próprios ícones
+        controlIconsEnabled: false,
         fit: true,
         center: true,
         minZoom: 0.1,
         maxZoom: 10,
-        // Garante que o scroll do mouse só dê zoom se segurar CTRL (opcional, evita scroll hijack)
         beforePan: function(oldPan, newPan){ 
           return {x: newPan.x, y: newPan.y}; 
         }
       });
     };
 
-    // Se o objeto já carregou (cache), inicia direto. Se não, espera o load.
     if (obj.contentDocument && obj.contentDocument.readyState === 'complete') {
         init();
     } else {

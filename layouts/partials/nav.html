@@ -1,0 +1,113 @@
+<style>
+  .top-nav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  
+  .dark .top-nav {
+    background: #111827;
+    border-bottom-color: var(--color-border-dark);
+  }
+  
+  .nav-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+  }
+  
+  .site-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    text-decoration: none;
+  }
+  
+  .dark .site-title {
+    color: var(--color-text-dark);
+  }
+  
+  .theme-toggle {
+    padding: 0.625rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    color: #6b7280;
+  }
+  
+  .dark .theme-toggle {
+    color: #9ca3af;
+  }
+  
+  .theme-toggle:hover {
+    background: #f3f4f6;
+  }
+  
+  .dark .theme-toggle:hover {
+    background: #374151;
+  }
+  
+  .theme-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: none;
+  }
+  
+  .theme-icon.active {
+    display: block;
+  }
+</style>
+
+<nav class="top-nav">
+  <div class="nav-container">
+    <div class="nav-content">
+      <a href="{{ .Site.BaseURL }}" class="site-title">
+        {{ .Site.Title }}
+      </a>
+      <button id="theme-toggle" type="button" class="theme-toggle">
+        <svg id="theme-toggle-dark-icon" class="theme-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg id="theme-toggle-light-icon" class="theme-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script>
+  var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+  var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+  // Change the icons inside the button based on previous settings
+  if (document.documentElement.classList.contains('dark')) {
+    themeToggleLightIcon.classList.add('active');
+  } else {
+    themeToggleDarkIcon.classList.add('active');
+  }
+
+  var themeToggleBtn = document.getElementById('theme-toggle');
+
+  themeToggleBtn.addEventListener('click', function() {
+    // toggle icons
+    themeToggleDarkIcon.classList.toggle('active');
+    themeToggleLightIcon.classList.toggle('active');
+
+    // toggle dark mode
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('color-theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('color-theme', 'dark');
+    }
+  });
+</script>

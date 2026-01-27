@@ -1,25 +1,182 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.LanguageCode }}" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
-  <meta name="description" content="{{ .Site.Params.description }}">
+  {{ partial "head.html" . }}
   
   <!-- Excalidraw Pan/Zoom Library -->
   <script src="{{ "js/excalidraw-pan-zoom.js" | relURL }}"></script>
+  
+  <style>
+    /* Layout using CSS custom properties */
+    .layout-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      width: 320px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      background: var(--color-sidebar-light);
+      border-right: 1px solid var(--color-border-light);
+      padding: 1.25rem;
+    }
+    
+    .dark .sidebar {
+      background: var(--color-sidebar-dark);
+      border-right-color: var(--color-border-dark);
+    }
+    
+    .content {
+      margin-left: 320px;
+      flex: 1;
+      padding: 2.5rem;
+      max-width: 56rem;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      margin-bottom: 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--color-border-light);
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+    
+    .dark .search-input {
+      background: #1f2937;
+      border-color: var(--color-border-dark);
+      color: var(--color-text-dark);
+    }
+    
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .dark .search-input::placeholder {
+      color: #6b7280;
+    }
+    
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-item {
+      margin: 0.25rem 0;
+    }
+    
+    .nav-link {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      color: #374151;
+      text-decoration: none;
+      border-radius: 0.375rem;
+      transition: background-color 0.2s;
+    }
+    
+    .dark .nav-link {
+      color: #d1d5db;
+    }
+    
+    .nav-link:hover {
+      background: #e5e7eb;
+    }
+    
+    .dark .nav-link:hover {
+      background: #1f2937;
+    }
+    
+    .nav-link.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    
+    .dark .nav-link.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+      }
+      .content {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>{{ .Site.Title }}</h1>
-  </header>
+  {{ partial "nav.html" . }}
   
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Search Bar -->
+      <input 
+        type="text" 
+        class="search-input" 
+        id="docs-search" 
+        placeholder="Pesquisar na documentação..." 
+      />
+      
+      <!-- Navigation -->
+      <nav>
+        <ul class="nav-list">
+          {{ $currentPage := . }}
+          {{ range .Site.Pages.ByWeight }}
+            {{ if and (ne .Kind "home") (ne .Kind "section") }}
+            <li class="nav-item">
+              <a 
+                href="{{ .RelPermalink }}" 
+                class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}"
+              >
+                {{ .Title }}
+              </a>
+            </li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- Content -->
+    <main class="content">
+      {{ block "main" . }}{{ end }}
+    </main>
+  </div>
   
-  <footer>
-    <p>&copy; {{ now.Year }} {{ .Site.Title }}</p>
-  </footer>
+  {{ partial "footer.html" . }}
+  
+  <!-- Simple search functionality -->
+  <script>
+    document.getElementById('docs-search').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const navItems = document.querySelectorAll('.nav-item');
+      
+      navItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const text = link.textContent.toLowerCase();
+        
+        if (text.includes(searchTerm)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -35,3 +35,8 @@ go.work.sum
 public/
 resources/
 .hugo_build.lock
+
+# Hugo binary and archives
+hugo
+hugo_*
+*.tar.gz

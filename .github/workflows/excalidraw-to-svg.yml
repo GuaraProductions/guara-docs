@@ -26,9 +26,9 @@ jobs:
         with:
           node-version: '20'
           
-      - name: Install Excalidraw CLI
+      - name: Install Excalidraw to SVG converter
         run: |
-          npm i @swiftlysingh/excalidraw-cli
+          npm install -g excalidraw-to-svg
           
       - name: Find and convert Excalidraw files
         run: |
@@ -52,8 +52,8 @@ jobs:
             
             output_file="$output_dir/$filename.svg"
             
-            # Convert to SVG
-            npx excalidraw-cli "$file" "$output_file"
+            # Convert to SVG using excalidraw-to-svg
+            excalidraw-to-svg "$file" > "$output_file"
             
             echo "Created $output_file"
           done

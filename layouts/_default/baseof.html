@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 <head>
+  {{ partial "head.html" . }}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
@@ -8,18 +9,138 @@
   
   <!-- Excalidraw Pan/Zoom Library -->
   <script src="{{ "js/excalidraw-pan-zoom.js" | relURL }}"></script>
+  
+  <style>
+    /* Documentation layout styles */
+    .docs-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .docs-sidebar {
+      width: 280px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      border-right: 1px solid #e1e4e8;
+      padding: 20px;
+    }
+    .dark .docs-sidebar {
+      background-color: #1a1a1a;
+      border-right-color: #333;
+    }
+    .docs-content {
+      margin-left: 280px;
+      flex: 1;
+      padding: 40px;
+      max-width: 900px;
+    }
+    .docs-search {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .dark .docs-search {
+      background-color: #2a2a2a;
+      border-color: #444;
+      color: #fff;
+    }
+    .docs-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .docs-nav li {
+      margin: 5px 0;
+    }
+    .docs-nav a {
+      display: block;
+      padding: 8px 12px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    .dark .docs-nav a {
+      color: #e1e4e8;
+    }
+    .docs-nav a:hover {
+      background-color: #e1e4e8;
+    }
+    .dark .docs-nav a:hover {
+      background-color: #2a2a2a;
+    }
+    .docs-nav a.active {
+      background-color: #0366d6;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .docs-sidebar {
+        position: relative;
+        width: 100%;
+      }
+      .docs-content {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
-<body>
-  <header>
-    <h1>{{ .Site.Title }}</h1>
-  </header>
+<body class="bg-gray-50 dark:bg-gray-950">
+  {{ partial "nav.html" . }}
   
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
+  <div class="docs-container">
+    <!-- Sidebar -->
+    <aside class="docs-sidebar">
+      <!-- Search Bar -->
+      <input type="text" class="docs-search" id="docs-search" placeholder="Pesquisar na documentação..." />
+      
+      <!-- Navigation -->
+      <nav class="docs-nav">
+        <ul>
+          {{ $currentPage := . }}
+          {{ range .Site.Pages.ByWeight }}
+            {{ if and (ne .Kind "home") (ne .Kind "section") }}
+            <li>
+              <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $currentPage.RelPermalink }}class="active"{{ end }}>
+                {{ .Title }}
+              </a>
+            </li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- Content -->
+    <main class="docs-content">
+      {{ block "main" . }}{{ end }}
+    </main>
+  </div>
   
-  <footer>
-    <p>&copy; {{ now.Year }} {{ .Site.Title }}</p>
-  </footer>
+  {{ partial "footer" . }}
+  
+  <!-- Simple search functionality -->
+  <script>
+    document.getElementById('docs-search').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const navLinks = document.querySelectorAll('.docs-nav a');
+      
+      navLinks.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        const listItem = link.parentElement;
+        
+        if (text.includes(searchTerm)) {
+          listItem.style.display = 'block';
+        } else {
+          listItem.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

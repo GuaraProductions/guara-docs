@@ -1,10 +1,15 @@
 baseURL = 'https://guaraproductions.github.io/guara-docs/'
 languageCode = 'pt-br'
 title = 'Guara Help Site'
+theme = 'tailbliss'
+DefaultContentLanguage = 'pt-br'
+enableEmoji = true
+enableRobotsTXT = true
 
 [params]
   description = "Um site estático para ajudar desenvolvedores no Godot"
-
+  disable_theme_toggle = false
+  
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

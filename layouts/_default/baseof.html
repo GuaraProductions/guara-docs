@@ -2,10 +2,6 @@
 <html lang="{{ .Site.LanguageCode }}">
 <head>
   {{ partial "head.html" . }}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
-  <meta name="description" content="{{ .Site.Params.description }}">
   
   <!-- Excalidraw Pan/Zoom Library -->
   <script src="{{ "js/excalidraw-pan-zoom.js" | relURL }}"></script>
@@ -122,7 +118,7 @@
     </main>
   </div>
   
-  {{ partial "footer" . }}
+  {{ partial "footer.html" . }}
   
   <!-- Simple search functionality -->
   <script>

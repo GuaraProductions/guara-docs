@@ -1,8 +1,6 @@
 baseURL = 'https://guaraproductions.github.io/guara-docs/'
-languageCode = 'pt-br'
-title = 'Guara Help Site'
+title = 'Guara Docs'
 theme = 'tailbliss'
-DefaultContentLanguage = 'pt-br'
 enableEmoji = true
 enableRobotsTXT = true
 
@@ -14,3 +12,14 @@ enableRobotsTXT = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+languageCode = "pt-BR"
+defaultContentLanguage = "pt-BR"
+
+[languages]
+  [languages.pt-BR]
+    languageName = "Português do Brasil"
+    weight = 1
+  [languages.en]
+    languageName = "English"
+    weight = 2

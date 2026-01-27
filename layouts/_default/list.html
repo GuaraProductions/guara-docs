@@ -1,16 +1,16 @@
 {{ define "main" }}
-<article class="prose dark:prose-invert max-w-none">
-  <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
-  <div class="content">
+<article class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300">
+  <h1>{{ .Title }}</h1>
+  <div>
     {{ .Content }}
   </div>
   
   {{ if .Pages }}
-  <h2 class="text-2xl font-semibold mt-8 mb-4">Páginas</h2>
+  <h2 class="mt-8 mb-4">Páginas</h2>
   <ul class="space-y-2">
     {{ range .Pages }}
     <li>
-      <a href="{{ .RelPermalink }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+      <a href="{{ .RelPermalink }}" class="text-blue-600 dark:text-blue-400 hover:underline no-underline hover:decoration-1">
         {{ .Title }}
       </a>
       {{ with .Description }}

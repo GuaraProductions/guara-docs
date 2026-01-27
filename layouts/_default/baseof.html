@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.LanguageCode }}" class="dark">
 <head>
   {{ partial "head.html" . }}
   
@@ -7,102 +7,142 @@
   <script src="{{ "js/excalidraw-pan-zoom.js" | relURL }}"></script>
   
   <style>
-    /* Documentation layout styles */
-    .docs-container {
+    /* Layout using CSS custom properties */
+    .layout-container {
       display: flex;
       min-height: 100vh;
     }
-    .docs-sidebar {
-      width: 280px;
+    
+    .sidebar {
+      width: 320px;
       position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
       overflow-y: auto;
-      background-color: #f8f9fa;
-      border-right: 1px solid #e1e4e8;
-      padding: 20px;
+      background: var(--color-sidebar-light);
+      border-right: 1px solid var(--color-border-light);
+      padding: 1.25rem;
     }
-    .dark .docs-sidebar {
-      background-color: #1a1a1a;
-      border-right-color: #333;
+    
+    .dark .sidebar {
+      background: var(--color-sidebar-dark);
+      border-right-color: var(--color-border-dark);
     }
-    .docs-content {
-      margin-left: 280px;
+    
+    .content {
+      margin-left: 320px;
       flex: 1;
-      padding: 40px;
-      max-width: 900px;
+      padding: 2.5rem;
+      max-width: 56rem;
     }
-    .docs-search {
+    
+    .search-input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #e1e4e8;
-      border-radius: 6px;
-      font-size: 14px;
+      padding: 0.625rem 0.75rem;
+      margin-bottom: 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--color-border-light);
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      color: var(--color-text-light);
     }
-    .dark .docs-search {
-      background-color: #2a2a2a;
-      border-color: #444;
-      color: #fff;
+    
+    .dark .search-input {
+      background: #1f2937;
+      border-color: var(--color-border-dark);
+      color: var(--color-text-dark);
     }
-    .docs-nav ul {
+    
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .dark .search-input::placeholder {
+      color: #6b7280;
+    }
+    
+    .nav-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .docs-nav li {
-      margin: 5px 0;
+    
+    .nav-item {
+      margin: 0.25rem 0;
     }
-    .docs-nav a {
+    
+    .nav-link {
       display: block;
-      padding: 8px 12px;
-      color: #333;
+      padding: 0.5rem 0.75rem;
+      color: #374151;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 0.375rem;
       transition: background-color 0.2s;
     }
-    .dark .docs-nav a {
-      color: #e1e4e8;
+    
+    .dark .nav-link {
+      color: #d1d5db;
     }
-    .docs-nav a:hover {
-      background-color: #e1e4e8;
+    
+    .nav-link:hover {
+      background: #e5e7eb;
     }
-    .dark .docs-nav a:hover {
-      background-color: #2a2a2a;
+    
+    .dark .nav-link:hover {
+      background: #1f2937;
     }
-    .docs-nav a.active {
-      background-color: #0366d6;
-      color: white;
+    
+    .nav-link.active {
+      background: #2563eb;
+      color: #ffffff;
     }
+    
+    .dark .nav-link.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
     @media (max-width: 768px) {
-      .docs-sidebar {
+      .sidebar {
         position: relative;
         width: 100%;
       }
-      .docs-content {
+      .content {
         margin-left: 0;
       }
     }
   </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-950">
+<body>
   {{ partial "nav.html" . }}
   
-  <div class="docs-container">
+  <div class="layout-container">
     <!-- Sidebar -->
-    <aside class="docs-sidebar">
+    <aside class="sidebar">
       <!-- Search Bar -->
-      <input type="text" class="docs-search" id="docs-search" placeholder="Pesquisar na documentação..." />
+      <input 
+        type="text" 
+        class="search-input" 
+        id="docs-search" 
+        placeholder="Pesquisar na documentação..." 
+      />
       
       <!-- Navigation -->
-      <nav class="docs-nav">
-        <ul>
+      <nav>
+        <ul class="nav-list">
           {{ $currentPage := . }}
           {{ range .Site.Pages.ByWeight }}
             {{ if and (ne .Kind "home") (ne .Kind "section") }}
-            <li>
-              <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $currentPage.RelPermalink }}class="active"{{ end }}>
+            <li class="nav-item">
+              <a 
+                href="{{ .RelPermalink }}" 
+                class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}"
+              >
                 {{ .Title }}
               </a>
             </li>
@@ -113,7 +153,7 @@
     </aside>
     
     <!-- Content -->
-    <main class="docs-content">
+    <main class="content">
       {{ block "main" . }}{{ end }}
     </main>
   </div>
@@ -124,16 +164,16 @@
   <script>
     document.getElementById('docs-search').addEventListener('input', function(e) {
       const searchTerm = e.target.value.toLowerCase();
-      const navLinks = document.querySelectorAll('.docs-nav a');
+      const navItems = document.querySelectorAll('.nav-item');
       
-      navLinks.forEach(link => {
+      navItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
         const text = link.textContent.toLowerCase();
-        const listItem = link.parentElement;
         
         if (text.includes(searchTerm)) {
-          listItem.style.display = 'block';
+          item.classList.remove('hidden');
         } else {
-          listItem.style.display = 'none';
+          item.classList.add('hidden');
         }
       });
     });

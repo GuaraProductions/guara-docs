@@ -1,6 +1,34 @@
-<footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-12">
-  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-    <p class="text-center text-gray-500 dark:text-gray-400">
+<style>
+  .site-footer {
+    background: #ffffff;
+    border-top: 1px solid var(--color-border-light);
+    margin-top: 3rem;
+  }
+  
+  .dark .site-footer {
+    background: #111827;
+    border-top-color: var(--color-border-dark);
+  }
+  
+  .footer-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+  
+  .footer-text {
+    text-align: center;
+    color: #6b7280;
+  }
+  
+  .dark .footer-text {
+    color: #9ca3af;
+  }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <p class="footer-text">
       &copy; {{ now.Year }} {{ .Site.Title }}. Feito com ❤️ usando Hugo e TailBliss.
     </p>
   </div>

@@ -59,14 +59,6 @@ Acesse http://localhost:1313
 - **Pan touch** - Arraste com um dedo
 - **Controles visuais** - Botões de zoom in, zoom out e reset
 
-## 🔄 Workflow de Conversão Automática
-
-1. Crie diagramas em [Excalidraw](https://excalidraw.com/)
-2. Exporte como arquivo `.excalidraw`
-3. Adicione em `static/diagrams/`
-4. Faça commit e push
-5. GitHub Actions converte automaticamente para `.svg`
-
 ## 📁 Estrutura do Projeto
 
 ```
@@ -95,11 +87,7 @@ Para fazer deploy manual:
 1. Vá em Actions no GitHub
 2. Selecione o workflow "Deploy Hugo site to Pages"
 3. Clique em "Run workflow"
-
-## 📚 Documentação
-
-Para documentação completa sobre o shortcode Excalidraw, veja [EXCALIDRAW_SHORTCODE.md](EXCALIDRAW_SHORTCODE.md).
-
+   
 ## 🤝 Contribuindo
 
 Contribuições são bem-vindas! Veja como:

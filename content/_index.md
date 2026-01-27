@@ -4,7 +4,7 @@ date: 2026-01-27
 draft: false
 ---
 
-# Guara Help Site
+# Guara Docs
 
 Bem-vindo ao site de ajuda para desenvolvedores Godot!
 

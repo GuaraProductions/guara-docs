@@ -64,17 +64,24 @@
       zoom(instance, delta, e.clientX, e.clientY);
     }, { passive: false });
 
-    // Touch zoom
+    // Touch events - combined handler for zoom and pan
     let lastTouchDistance = 0;
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+    
     container.addEventListener('touchstart', function(e) {
       if (e.touches.length === 2) {
         e.preventDefault();
         lastTouchDistance = getTouchDistance(e.touches);
+      } else if (e.touches.length === 1) {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
       }
     }, { passive: false });
 
     container.addEventListener('touchmove', function(e) {
       if (e.touches.length === 2) {
+        // Pinch to zoom
         e.preventDefault();
         const currentDistance = getTouchDistance(e.touches);
         const delta = currentDistance / lastTouchDistance;
@@ -82,6 +89,16 @@
         const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
         zoom(instance, delta, centerX, centerY);
         lastTouchDistance = currentDistance;
+      } else if (e.touches.length === 1) {
+        // Pan with one finger
+        e.preventDefault();
+        const deltaX = e.touches[0].clientX - lastTouchX;
+        const deltaY = e.touches[0].clientY - lastTouchY;
+        instance.translateX += deltaX;
+        instance.translateY += deltaY;
+        applyTransform(instance);
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
       }
     }, { passive: false });
 
@@ -111,29 +128,6 @@
         container.style.cursor = 'grab';
       }
     });
-
-    // Touch panning
-    let lastTouchX = 0;
-    let lastTouchY = 0;
-    container.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 1) {
-        lastTouchX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
-      }
-    });
-
-    container.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 1) {
-        e.preventDefault();
-        const deltaX = e.touches[0].clientX - lastTouchX;
-        const deltaY = e.touches[0].clientY - lastTouchY;
-        instance.translateX += deltaX;
-        instance.translateY += deltaY;
-        applyTransform(instance);
-        lastTouchX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
-      }
-    }, { passive: false });
 
     instances.set(containerId, instance);
   };
@@ -225,16 +219,5 @@
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
-  }
-
-  // Initialize all existing diagrams on page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll);
-  } else {
-    initAll();
-  }
-
-  function initAll() {
-    // Will be called by individual shortcodes
   }
 })();

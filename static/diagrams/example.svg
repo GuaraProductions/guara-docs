@@ -2,7 +2,9 @@
   <!-- Simple Excalidraw-style diagram for testing -->
   <defs>
     <style>
-      @font-family: "Virgil", "Segoe UI Emoji";
+      text {
+        font-family: "Virgil", "Segoe UI Emoji";
+      }
     </style>
   </defs>
   

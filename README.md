@@ -1,4 +1,4 @@
-# Guara Help Site
+# Guara Docs
 
 Um site estático para ajudar desenvolvedores no Godot, construído com Hugo e hospedado no GitHub Pages.
 

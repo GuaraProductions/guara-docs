@@ -1,20 +1,20 @@
 {{ define "main" }}
-<article class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300">
+<article class="prose">
   <h1>{{ .Title }}</h1>
   <div>
     {{ .Content }}
   </div>
   
   {{ if .Pages }}
-  <h2 class="mt-8 mb-4">Páginas</h2>
-  <ul class="space-y-2">
+  <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Páginas</h2>
+  <ul style="list-style: none; padding: 0;">
     {{ range .Pages }}
-    <li>
-      <a href="{{ .RelPermalink }}" class="text-blue-600 dark:text-blue-400 hover:underline no-underline hover:decoration-1">
+    <li style="margin-bottom: 0.5rem;">
+      <a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none;">
         {{ .Title }}
       </a>
       {{ with .Description }}
-      <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ . }}</p>
+      <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.25rem;">{{ . }}</p>
       {{ end }}
     </li>
     {{ end }}

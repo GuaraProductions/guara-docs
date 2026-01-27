@@ -109,4 +109,8 @@
           container.innerHTML = `<div class="p-4 text-red-500">Erro no SVG</div>`;
         }
       })
-      .catch(e =>
+      .catch(e => {
+        if(loader) loader.innerHTML = '<span class="text-red-500">Erro de conexão</span>';
+      });
+  })();
+</script>

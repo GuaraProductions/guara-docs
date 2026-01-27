@@ -1,11 +1,11 @@
-{{/* Excalidraw Shortcode - Versão DOMParser Robusta */}}
+{{/* Excalidraw Shortcode - Final Fix (Bounding Box) */}}
 {{ $src := .Get "src" }}
 {{ $w := .Get "width" | default "100%" }}
 {{ $h := .Get "height" | default "500px" }}
 {{ $seed := now.UnixNano | md5 }}
 {{ $id := printf "excalidraw-%s" $seed }}
 
-<div class="excalidraw-wrapper relative group border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors my-8">
+<div class="excalidraw-wrapper relative group border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 my-8 z-0">
   
   <div id="controls-{{ $id }}" class="absolute top-2 right-2 z-10 flex gap-1 bg-white dark:bg-gray-800 p-1 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 pointer-events-none transition-opacity duration-300">
     <button onclick="safeZoom('{{ $id }}', 'in')" class="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-600 dark:text-gray-300 cursor-pointer" title="Zoom In">
@@ -19,8 +19,8 @@
     </button>
   </div>
 
-  <div id="{{ $id }}" style="width: {{ $w }}; height: {{ $h }};" class="flex items-center justify-center bg-white overflow-hidden relative">
-    <div id="loader-{{ $id }}" class="animate-pulse flex flex-col items-center">
+  <div id="{{ $id }}" style="width: 100%; height: {{ $h }};" class="relative overflow-hidden bg-white rounded-lg">
+    <div id="loader-{{ $id }}" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-20">
       <div class="h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-2"></div>
       <span class="text-sm text-gray-500">Carregando diagrama...</span>
     </div>
@@ -29,14 +29,11 @@
 </div>
 
 <script>
-  // Função global segura para os botões (evita erro "undefined")
   function safeZoom(id, action) {
     if (window.excalidrawMap && window.excalidrawMap[id]) {
       if (action === 'in') window.excalidrawMap[id].zoomIn();
       if (action === 'out') window.excalidrawMap[id].zoomOut();
       if (action === 'reset') window.excalidrawMap[id].reset();
-    } else {
-      console.warn('Diagrama ainda não pronto ou falhou ao carregar.');
     }
   }
 
@@ -47,53 +44,49 @@
     const loader = document.getElementById('loader-{{ $id }}');
     const svgUrl = '{{ $src | relURL }}';
 
-    // Função de tratamento do SVG
     const processSVG = (svgText) => {
-      // 1. Parseia a string para um documento XML real
       const parser = new DOMParser();
       const doc = parser.parseFromString(svgText, "image/svg+xml");
       const svgEl = doc.querySelector("svg");
 
-      if (!svgEl) {
-        throw new Error("Não foi encontrado elemento <svg> no arquivo.");
-      }
+      if (!svgEl) throw new Error("SVG não encontrado");
 
-      // 2. Remove atributos fixos que travam o zoom (Crucial para Excalidraw!)
+      // LIMPEZA E ESTILIZAÇÃO FORÇADA (CSS Hard Reset)
       svgEl.removeAttribute('width');
       svgEl.removeAttribute('height');
-      // Garante que ocupe 100%
-      svgEl.style.width = "100%";
-      svgEl.style.height = "100%";
-      svgEl.style.maxWidth = "none"; // Previne regras de CSS globais
       
-      // 3. Adiciona um ID único ao elemento SVG para a biblioteca achar
+      // Trava o SVG dentro do container
+      Object.assign(svgEl.style, {
+        position: 'absolute',  // Absoluto em relação ao container 'relative'
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',    // O Segredo: Corta o que passar da borda
+        maxWidth: 'none',
+        maxHeight: 'none'
+      });
+      
       svgEl.id = "svg-internal-{{ $id }}";
-
       return svgEl;
     };
 
     fetch(svgUrl)
-      .then(response => {
-        if (!response.ok) throw new Error('Status: ' + response.status);
-        return response.text();
+      .then(res => {
+        if (!res.ok) throw new Error('Erro HTTP: ' + res.status);
+        return res.text();
       })
       .then(svgText => {
         try {
-          // Processa o SVG
           const svgElement = processSVG(svgText);
-
-          // Limpa o loader e insere o SVG
-          loader.remove();
+          
+          // Remove loader e insere SVG
+          if(loader) loader.remove();
           container.appendChild(svgElement);
 
-          // Pequeno delay para garantir que o navegador renderizou o DOM
           setTimeout(() => {
-            if (typeof svgPanZoom === 'undefined') {
-              console.error('Biblioteca svg-pan-zoom não encontrada.');
-              return;
-            }
+            if (typeof svgPanZoom === 'undefined') return;
 
-            // INICIALIZAÇÃO
             window.excalidrawMap['{{ $id }}'] = svgPanZoom(svgElement, {
               zoomEnabled: true,
               controlIconsEnabled: false,
@@ -101,26 +94,24 @@
               center: true,
               minZoom: 0.1,
               maxZoom: 10,
-              viewportSelector: document.getElementById('{{ $id }}'), // Restringe eventos ao container
-              dblClickZoomEnabled: false
+              viewportSelector: container, // Importante: Usa a div como viewport
+              dblClickZoomEnabled: false,
+              contain: true // Tenta conter o pan dentro da view
             });
 
-            // Ativa os controles visuais (opacidade 1 e permite cliques)
             controls.classList.remove('opacity-0', 'pointer-events-none');
-            controls.classList.add('opacity-100', 'group-hover:opacity-100'); // Força visibilidade
-            
-            console.log('Excalidraw carregado com sucesso:', '{{ $id }}');
+            controls.classList.add('opacity-100');
 
-          }, 100); // 100ms de respiro para o motor de renderização
+          }, 50);
 
-        } catch (parseError) {
-          console.error('Erro ao processar SVG:', parseError);
-          container.innerHTML = `<p class="text-red-500 p-4">Erro no formato do arquivo.</p>`;
+        } catch (e) {
+          console.error('Erro:', e);
+          container.innerHTML = `<div class="p-4 text-red-500">Erro ao renderizar diagrama.</div>`;
         }
       })
-      .catch(err => {
-        console.error('Erro no fetch:', err);
-        loader.innerHTML = '<span class="text-red-500">Erro ao baixar arquivo.</span>';
+      .catch(e => {
+        console.error('Fetch falhou:', e);
+        if(loader) loader.innerHTML = '<span class="text-red-500">Erro de conexão</span>';
       });
   })();
 </script>

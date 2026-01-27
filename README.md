@@ -21,8 +21,8 @@ Um site estático para ajudar desenvolvedores no Godot, construído com Hugo e h
 
 ```bash
 # Clone o repositório
-git clone https://github.com/GuaraProductions/guara-help-site.git
-cd guara-help-site
+git clone https://github.com/GuaraProductions/guara-docs.git
+cd guara-docs
 
 # Execute o servidor de desenvolvimento
 hugo server -D
@@ -70,8 +70,8 @@ Acesse http://localhost:1313
 ## 📁 Estrutura do Projeto
 
 ```
-guara-help-site/
-├── .github/workflows/       # GitHub Actions
+guara-docs/
+├── .github/workflows/       # GitHub Actions (deploy automático)
 ├── content/                 # Conteúdo do site
 ├── layouts/                 # Templates Hugo
 │   └── shortcodes/         # Shortcode Excalidraw
@@ -80,6 +80,21 @@ guara-help-site/
 │   └── js/                 # JavaScript
 └── hugo.toml               # Configuração Hugo
 ```
+
+## 🚀 Deploy
+
+O site é automaticamente deployado no GitHub Pages quando há push na branch `main`. O workflow de deploy:
+
+1. Instala o Hugo (versão 0.128.0 extended)
+2. Faz build do site com otimizações (`--gc --minify`)
+3. Faz deploy no GitHub Pages
+
+**URL do site**: https://guaraproductions.github.io/guara-docs/
+
+Para fazer deploy manual:
+1. Vá em Actions no GitHub
+2. Selecione o workflow "Deploy Hugo site to Pages"
+3. Clique em "Run workflow"
 
 ## 📚 Documentação
 
@@ -101,4 +116,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para de
 
 ## 💡 Suporte
 
-Para reportar bugs ou sugerir melhorias, abra uma [issue](https://github.com/GuaraProductions/guara-help-site/issues).
+Para reportar bugs ou sugerir melhorias, abra uma [issue](https://github.com/GuaraProductions/guara-docs/issues).

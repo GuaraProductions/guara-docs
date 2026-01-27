@@ -3,26 +3,35 @@
 <head>
   {{ partial "head.html" . }}
   
-  <!-- Excalidraw Pan/Zoom Library -->
-  <script src="{{ "js/excalidraw-pan-zoom.js" | relURL }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
   
   <style>
-    /* Layout using CSS custom properties */
+    /* Layout Variables & Base */
+    :root {
+      --header-height: 64px;
+      --sidebar-width: 300px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     .layout-container {
       display: flex;
       min-height: 100vh;
+      padding-top: var(--header-height); /* Espaço para o Nav fixo */
     }
     
+    /* Sidebar Fixa */
     .sidebar {
-      width: 320px;
+      width: var(--sidebar-width);
       position: fixed;
       left: 0;
-      top: 0;
+      top: var(--header-height);
       bottom: 0;
       overflow-y: auto;
       background: var(--color-sidebar-light);
       border-right: 1px solid var(--color-border-light);
-      padding: 1.25rem;
+      padding: 1.5rem;
+      z-index: 30;
     }
     
     .dark .sidebar {
@@ -30,13 +39,15 @@
       border-right-color: var(--color-border-dark);
     }
     
+    /* Área de Conteúdo Central */
     .content {
-      margin-left: 320px;
+      margin-left: var(--sidebar-width);
       flex: 1;
       padding: 2.5rem;
-      max-width: 56rem;
+      max-width: 65rem; /* Aumentado para acomodar diagramas maiores */
     }
     
+    /* Estilização da Busca */
     .search-input {
       width: 100%;
       padding: 0.625rem 0.75rem;
@@ -54,67 +65,47 @@
       color: var(--color-text-dark);
     }
     
-    .search-input::placeholder {
-      color: #9ca3af;
-    }
-    
-    .dark .search-input::placeholder {
-      color: #6b7280;
-    }
-    
-    .nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .nav-item {
-      margin: 0.25rem 0;
-    }
-    
+    /* Navegação da Sidebar */
+    .nav-list { list-style: none; }
+    .nav-item { margin: 0.25rem 0; }
     .nav-link {
       display: block;
       padding: 0.5rem 0.75rem;
       color: #374151;
       text-decoration: none;
       border-radius: 0.375rem;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
     }
     
-    .dark .nav-link {
-      color: #d1d5db;
-    }
-    
-    .nav-link:hover {
-      background: #e5e7eb;
-    }
-    
-    .dark .nav-link:hover {
-      background: #1f2937;
-    }
+    .dark .nav-link { color: #d1d5db; }
+    .nav-link:hover { background: #e5e7eb; }
+    .dark .nav-link:hover { background: #1f2937; }
     
     .nav-link.active {
-      background: #2563eb;
-      color: #ffffff;
+      background: #2563eb !important;
+      color: #ffffff !important;
+      font-weight: 600;
     }
     
-    .dark .nav-link.active {
-      background: #2563eb;
-      color: #ffffff;
-    }
+    .hidden { display: none; }
     
-    .hidden {
-      display: none;
+    /* Responsividade */
+    @media (max-width: 1024px) {
+      .sidebar { width: 250px; }
+      .content { margin-left: 250px; }
     }
-    
+
     @media (max-width: 768px) {
-      .sidebar {
-        position: relative;
-        width: 100%;
+      .layout-container { flex-direction: column; }
+      .sidebar { 
+        position: relative; 
+        top: 0; 
+        width: 100%; 
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border-light);
       }
-      .content {
-        margin-left: 0;
-      }
+      .content { margin-left: 0; padding: 1.5rem; }
     }
   </style>
 </head>
@@ -122,17 +113,14 @@
   {{ partial "nav.html" . }}
   
   <div class="layout-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <!-- Search Bar -->
       <input 
         type="text" 
         class="search-input" 
         id="docs-search" 
-        placeholder="Pesquisar na documentação..." 
+        placeholder="Pesquisar..." 
       />
       
-      <!-- Navigation -->
       <nav>
         <ul class="nav-list">
           {{ $currentPage := . }}
@@ -152,29 +140,23 @@
       </nav>
     </aside>
     
-    <!-- Content -->
     <main class="content">
-      {{ block "main" . }}{{ end }}
+      <article class="prose dark:prose-invert">
+        {{ block "main" . }}{{ end }}
+      </article>
     </main>
   </div>
   
   {{ partial "footer.html" . }}
   
-  <!-- Simple search functionality -->
   <script>
     document.getElementById('docs-search').addEventListener('input', function(e) {
       const searchTerm = e.target.value.toLowerCase();
       const navItems = document.querySelectorAll('.nav-item');
       
       navItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const text = link.textContent.toLowerCase();
-        
-        if (text.includes(searchTerm)) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
+        const text = item.querySelector('.nav-link').textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(searchTerm));
       });
     });
   </script>

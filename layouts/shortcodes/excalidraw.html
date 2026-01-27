@@ -41,23 +41,28 @@
     const obj = document.getElementById('{{ $id }}');
     
     const init = () => {
-      // 1. Verificação de Segurança: Biblioteca carregada?
+      // 1. Verificação de Segurança
       if (typeof svgPanZoom === 'undefined') {
-        console.error('[Excalidraw] svg-pan-zoom não encontrado. Adicione o script no baseof.html');
+        console.error('[Excalidraw] svg-pan-zoom não carregado.');
         return;
       }
 
       try {
-        // 2. O PULO DO GATO: Pegar o SVG *dentro* do Object
-        const internalSvg = obj.contentDocument.documentElement;
+        // 2. CORREÇÃO DO ERRO: Busca explícita pela tag 'svg'
+        // obj.contentDocument é o documento interno
+        // .querySelector('svg') ignora XML, HTML, Body e pega o desenho real
+        const internalSvg = obj.contentDocument.querySelector('svg');
         
-        // Se não for um SVG (ex: erro 404 retornando HTML), aborta
-        if (internalSvg.tagName.toLowerCase() !== 'svg') {
-          console.warn('[Excalidraw] Conteúdo não é um SVG válido.');
+        if (!internalSvg) {
+          console.warn('[Excalidraw] Nenhum elemento <svg> encontrado dentro do arquivo.');
           return;
         }
 
-        // 3. Inicializa a biblioteca DIRETAMENTE no elemento SVG interno
+        // Adiciona classe para garantir que o SVG ocupe o espaço todo
+        internalSvg.style.width = "100%";
+        internalSvg.style.height = "100%";
+
+        // 3. Inicializa a biblioteca no elemento correto
         window.excalidrawMap['{{ $id }}'] = svgPanZoom(internalSvg, {
           zoomEnabled: true,
           controlIconsEnabled: false,
@@ -65,21 +70,20 @@
           center: true,
           minZoom: 0.1,
           maxZoom: 10,
-          dblClickZoomEnabled: false, // Evita zoom acidental
-          // Corrige o comportamento do Pan para ser suave
+          dblClickZoomEnabled: false,
           beforePan: function(oldPan, newPan){ 
             return {x: newPan.x, y: newPan.y}; 
           }
         });
         
-        console.log('[Excalidraw] Zoom iniciado com sucesso para:', '{{ $id }}');
+        console.log('[Excalidraw] Sucesso! ID:', '{{ $id }}');
 
       } catch (e) {
-        console.error('[Excalidraw] Erro ao inicializar zoom. Possível bloqueio de CORS ou SVG inválido.', e);
+        console.error('[Excalidraw] Erro fatal na inicialização:', e);
       }
     };
 
-    // Tenta iniciar apenas quando o objeto estiver totalmente carregado
+    // Lógica de carregamento robusta
     if (obj.contentDocument && obj.contentDocument.readyState === 'complete') {
         init();
     } else {

@@ -1,13 +1,14 @@
-{{/* Excalidraw Shortcode - Final Fix (Bounding Box) */}}
+{{/* Excalidraw Shortcode - Nuclear Clipping Fix */}}
 {{ $src := .Get "src" }}
 {{ $w := .Get "width" | default "100%" }}
 {{ $h := .Get "height" | default "500px" }}
 {{ $seed := now.UnixNano | md5 }}
 {{ $id := printf "excalidraw-%s" $seed }}
 
-<div class="excalidraw-wrapper relative group border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 my-8 z-0">
+<div class="excalidraw-wrapper group border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 my-8"
+     style="position: relative; overflow: hidden; contain: paint; transform: translate3d(0,0,0); isolation: isolate; width: 100%; height: auto;">
   
-  <div id="controls-{{ $id }}" class="absolute top-2 right-2 z-10 flex gap-1 bg-white dark:bg-gray-800 p-1 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div id="controls-{{ $id }}" class="absolute top-2 right-2 z-50 flex gap-1 bg-white dark:bg-gray-800 p-1 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 pointer-events-none transition-opacity duration-300">
     <button onclick="safeZoom('{{ $id }}', 'in')" class="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-600 dark:text-gray-300 cursor-pointer" title="Zoom In">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
     </button>
@@ -19,7 +20,7 @@
     </button>
   </div>
 
-  <div id="{{ $id }}" style="width: 100%; height: {{ $h }};" class="relative overflow-hidden bg-white rounded-lg">
+  <div id="{{ $id }}" style="width: 100%; height: {{ $h }}; background-color: white;" class="relative">
     <div id="loader-{{ $id }}" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-20">
       <div class="h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-2"></div>
       <span class="text-sm text-gray-500">Carregando diagrama...</span>
@@ -29,11 +30,13 @@
 </div>
 
 <script>
+  // Função segura global
   function safeZoom(id, action) {
     if (window.excalidrawMap && window.excalidrawMap[id]) {
-      if (action === 'in') window.excalidrawMap[id].zoomIn();
-      if (action === 'out') window.excalidrawMap[id].zoomOut();
-      if (action === 'reset') window.excalidrawMap[id].reset();
+      const pz = window.excalidrawMap[id];
+      if (action === 'in') pz.zoomIn();
+      if (action === 'out') pz.zoomOut();
+      if (action === 'reset') { pz.reset(); pz.center(); pz.fit(); }
     }
   }
 
@@ -49,22 +52,20 @@
       const doc = parser.parseFromString(svgText, "image/svg+xml");
       const svgEl = doc.querySelector("svg");
 
-      if (!svgEl) throw new Error("SVG não encontrado");
+      if (!svgEl) throw new Error("SVG inválido");
 
-      // LIMPEZA E ESTILIZAÇÃO FORÇADA (CSS Hard Reset)
+      // Limpeza de atributos conflitantes
       svgEl.removeAttribute('width');
       svgEl.removeAttribute('height');
       
-      // Trava o SVG dentro do container
+      // Estilização forçada para garantir que fique dentro do container pai
       Object.assign(svgEl.style, {
-        position: 'absolute',  // Absoluto em relação ao container 'relative'
+        position: 'absolute',
         top: '0',
         left: '0',
         width: '100%',
         height: '100%',
-        overflow: 'hidden',    // O Segredo: Corta o que passar da borda
-        maxWidth: 'none',
-        maxHeight: 'none'
+        cursor: 'grab'
       });
       
       svgEl.id = "svg-internal-{{ $id }}";
@@ -73,17 +74,17 @@
 
     fetch(svgUrl)
       .then(res => {
-        if (!res.ok) throw new Error('Erro HTTP: ' + res.status);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.text();
       })
       .then(svgText => {
         try {
           const svgElement = processSVG(svgText);
           
-          // Remove loader e insere SVG
           if(loader) loader.remove();
           container.appendChild(svgElement);
 
+          // Inicialização
           setTimeout(() => {
             if (typeof svgPanZoom === 'undefined') return;
 
@@ -94,23 +95,24 @@
               center: true,
               minZoom: 0.1,
               maxZoom: 10,
-              viewportSelector: container, // Importante: Usa a div como viewport
-              dblClickZoomEnabled: false,
-              contain: true // Tenta conter o pan dentro da view
+              // Mantém o diagrama contido (opcional, remova se quiser pan infinito)
+              contain: false, 
+              viewportSelector: container, 
+              dblClickZoomEnabled: false
             });
 
+            // Mostra controles
             controls.classList.remove('opacity-0', 'pointer-events-none');
             controls.classList.add('opacity-100');
 
-          }, 50);
+          }, 100);
 
         } catch (e) {
-          console.error('Erro:', e);
-          container.innerHTML = `<div class="p-4 text-red-500">Erro ao renderizar diagrama.</div>`;
+          console.error(e);
+          container.innerHTML = `<div class="p-4 text-red-500">Erro no SVG</div>`;
         }
       })
       .catch(e => {
-        console.error('Fetch falhou:', e);
         if(loader) loader.innerHTML = '<span class="text-red-500">Erro de conexão</span>';
       });
   })();

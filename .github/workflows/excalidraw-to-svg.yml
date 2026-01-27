@@ -28,7 +28,7 @@ jobs:
           
       - name: Install Excalidraw CLI
         run: |
-          npm install -g @excalidraw/cli
+          npm i @swiftlysingh/excalidraw-cli
           
       - name: Find and convert Excalidraw files
         run: |
@@ -53,7 +53,7 @@ jobs:
             output_file="$output_dir/$filename.svg"
             
             # Convert to SVG
-            excalidraw-to-svg "$file" "$output_file"
+            npx excalidraw-cli "$file" "$output_file"
             
             echo "Created $output_file"
           done

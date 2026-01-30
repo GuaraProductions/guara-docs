@@ -37,7 +37,7 @@ Oferece pacotes temáticos de alta qualidade que cobrem as necessidades básicas
 Anualmente, a Soniss disponibiliza pacotes gigantescos de áudio profissional de alta definição (Foley) extraídos de bibliotecas pagas.
 * **Licença:** Royalty-Free (Uso comercial permitido).
 * **Destaque:** Qualidade de cinema para sons de ambiente, armas e veículos.
-* **Link:** [soniss.com/gameaudiogdc](https://soniss.com/gameaudiogdc/)
+* **Link:** [sonniss.com/gameaudiogdc](https://sonniss.com/gameaudiogdc/)
 
 ### 3. Freesound.org
 Uma plataforma colaborativa imensa onde usuários do mundo todo compartilham gravações de campo e efeitos sonoros experimentais.
@@ -48,7 +48,7 @@ Uma plataforma colaborativa imensa onde usuários do mundo todo compartilham gra
 O site mais famoso para encontrar músicas de fundo para jogos e vídeos. Permite filtrar por gênero, humor e ritmo.
 * **Licença:** Geralmente CC-BY (Requer atribuição).
 * **Destaque:** Trilhas instrumentais variadas que se encaixam em diversos contextos.
-* **Link:** [incompetech.com/music/](https://incompetech.com/music/)
+* **Link:** [incompetech.com/music/](https://incompetech.com/music/royalty-free/music.html)
 
 ---
 

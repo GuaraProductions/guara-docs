@@ -33,8 +33,8 @@ Oferece pacotes temáticos de alta qualidade que cobrem as necessidades básicas
 * **Destaque:** Conjuntos de sons de interface, cassino, ficção científica e vozes narradas.
 * **Link:** [kenney.nl/assets/category:Audio](https://kenney.nl/assets/category:Audio)
 
-### 2. Soniss (GDC Bundles)
-Anualmente, a Soniss disponibiliza pacotes gigantescos de áudio profissional de alta definição (Foley) extraídos de bibliotecas pagas.
+### 2. Sonniss (GDC Bundles)
+Anualmente, a Sonniss disponibiliza pacotes gigantescos de áudio profissional de alta definição (Foley) extraídos de bibliotecas pagas.
 * **Licença:** Royalty-Free (Uso comercial permitido).
 * **Destaque:** Qualidade de cinema para sons de ambiente, armas e veículos.
 * **Link:** [sonniss.com/gameaudiogdc](https://sonniss.com/gameaudiogdc/)

@@ -16,7 +16,7 @@ Um editor de pixel art extremamente completo e gratuito, desenvolvido inteiramen
 ### 2. Krita
 A ferramenta definitiva para pintura digital e ilustrações 2D. É a melhor alternativa gratuita ao Photoshop para artistas.
 * **Destaque:** Suporte avançado a tablets gráficos, pincéis estabilizados e animação tradicional.
-* **Link:** [krita.org](https://krita.org/)
+* **Link:** [krita.org](https://krita.org/pt-br/)
 
 ### 3. GIMP
 Focado em manipulação de fotos e texturas. Excelente para criar mapas de normais (normal maps) ou ajustar sprites existentes.

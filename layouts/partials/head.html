@@ -1,21 +1,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ .Site.Params.description }}">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | absURL }}">
+<link rel="shortcut icon" href="{{ "favicon.ico" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 
 <!-- Dark mode toggle script - Default to dark mode -->
 <script>
-  // Default to dark mode unless user explicitly chose light mode
-  if (localStorage.getItem('color-theme') === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    // Default to dark mode
+  // Default to light mode unless user explicitly chose dark mode
+  if (localStorage.getItem('color-theme') === 'dark') {
     document.documentElement.classList.add('dark');
+  } else {
+    // Default to light mode
+    document.documentElement.classList.remove('dark');
     if (!localStorage.getItem('color-theme')) {
-      localStorage.setItem('color-theme', 'dark');
+      localStorage.setItem('color-theme', 'light');
     }
   }
 </script>
@@ -202,3 +203,55 @@
 
 <!-- Alpine.js for interactivity -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Centralized theme-toggle behavior for all `.theme-toggle` buttons -->
+<script>
+  (function() {
+    // For every theme-toggle button on the page, wire up icon states and click handler.
+    function initThemeToggles() {
+      var buttons = document.querySelectorAll('.theme-toggle');
+      buttons.forEach(function(btn) {
+          var icons = Array.from(btn.querySelectorAll('.theme-icon'));
+          if (icons.length < 2) {
+            icons = Array.from(btn.querySelectorAll('.icon'));
+          }
+          var darkIcon = icons[0];
+          var lightIcon = icons[1];
+
+        if (darkIcon && lightIcon) {
+          if (document.documentElement.classList.contains('dark')) {
+            lightIcon.classList.add('active');
+            darkIcon.classList.remove('active');
+          } else {
+            darkIcon.classList.add('active');
+            lightIcon.classList.remove('active');
+          }
+        }
+
+        btn.addEventListener('click', function() {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+            if (darkIcon && lightIcon) {
+              darkIcon.classList.add('active');
+              lightIcon.classList.remove('active');
+            }
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+            if (darkIcon && lightIcon) {
+              darkIcon.classList.remove('active');
+              lightIcon.classList.add('active');
+            }
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initThemeToggles);
+    } else {
+      initThemeToggles();
+    }
+  })();
+</script>

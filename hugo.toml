@@ -7,7 +7,7 @@ enableRobotsTXT = true
 [params]
   description = "Um site estático para ajudar desenvolvedores no Godot"
   disable_theme_toggle = false
-  favicon = true
+  favicon = false
   svg = true
   faviconVersion = "1"
   
@@ -21,3 +21,7 @@ defaultContentLanguage = "pt-BR"
   [languages.en]
     languageName = "English"
     weight = 2
+
+[module]
+  [[module.imports]]
+    path = "github.com/hugo-mods/icons"

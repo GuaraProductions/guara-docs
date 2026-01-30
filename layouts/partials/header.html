@@ -1,13 +1,20 @@
 <header class="header-main">
   <div class="header-container">
-    <a href="https://guaraproductions.github.io/guara-docs/" class="site-logo">
-      <span class="logo-icon">🚀</span>
+    <a href="{{ "/guara-docs" | relURL }}" class="site-logo">
+      <img src="{{ "favicon-32x32.png" | relURL }}" alt="{{ .Site.Title }}" class="logo-icon">
       {{ .Site.Title }}
     </a>
 
     <nav class="header-links">
-      <a href="https://guaraproductions.github.io/guara-docs/" class="nav-btn">Início</a>
-      </nav>
+      <a href="https://github.com/GuaraProductions/guara-docs" class="nav-btn github-btn" target="_blank" rel="noopener" aria-label="Guara Docs on GitHub">
+        {{ partial "icon" (dict "context" . "name" "fab github" "class" "header-github-svg") }}
+      </a>
+
+      <button type="button" class="theme-toggle header-theme-toggle" aria-label="Toggle theme">
+        {{ partial "icon" (dict "context" . "name" "fas moon" "class" "theme-icon") }}
+        {{ partial "icon" (dict "context" . "name" "fas sun" "class" "theme-icon") }}
+      </button>
+    </nav>
   </div>
 </header>
 
@@ -18,13 +25,12 @@
     left: 0;
     right: 0;
     height: var(--header-height);
-    /* Destaque: Fundo levemente mais claro que a sidebar e borda vibrante */
-    background: #1f2937; 
-    border-bottom: 2px solid #3b82f6; 
+    background: var(--color-bg-light);
+    border-bottom: 2px solid #3b82f6;
     z-index: 1000;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
   }
 
   .header-container {
@@ -41,9 +47,25 @@
     gap: 0.75rem;
     font-size: 1.25rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--color-text-light);
     text-decoration: none;
     transition: transform 0.2s;
+  }
+
+.dark .header-main {
+  background: var(--color-bg-dark);
+  border-bottom-color: #1f2937;
+}
+
+.dark .site-logo {
+  color: var(--color-text-dark);
+}
+
+  .logo-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
+    object-fit: contain;
   }
 
   .site-logo:hover {
@@ -52,7 +74,7 @@
 
   .nav-btn {
     background: #3b82f6;
-    color: white;
+    color: var(--color-text-light);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     text-decoration: none;
@@ -64,4 +86,82 @@
   .nav-btn:hover {
     background: #2563eb;
   }
+
+  .header-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .github-btn {
+    background: transparent;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .github-btn svg {
+    display: block;
+  }
+
+  .github-btn svg,
+  .github-btn .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+  }
+
+  .github-btn {
+    padding: 0.25rem;
+  }
+
+  /* Icon color follows theme for proper contrast */
+  .github-btn,
+  .theme-toggle {
+    color: var(--color-text-light);
+  }
+
+  .github-btn svg,
+  .github-btn .icon,
+  .theme-toggle svg,
+  .theme-toggle .icon {
+    fill: currentColor;
+    color: inherit;
+  }
+
+  .dark .github-btn,
+  .dark .theme-toggle {
+    color: var(--color-text-dark);
+  }
+
+  .header-theme-toggle {
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    color: #d1d5db;
+  }
+
+  .header-theme-toggle:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* Ensure module-rendered SVGs inside theme-toggle are sized */
+  .theme-toggle .icon,
+  .theme-toggle .theme-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: none;
+  }
+
+  .theme-toggle .icon.active,
+  .theme-toggle .theme-icon.active {
+    display: block;
+  }
 </style>
+

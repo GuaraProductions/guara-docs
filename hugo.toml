@@ -7,12 +7,10 @@ enableRobotsTXT = true
 [params]
   description = "Um site estático para ajudar desenvolvedores no Godot"
   disable_theme_toggle = false
+  favicon = true
+  svg = true
+  faviconVersion = "1"
   
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-
 languageCode = "pt-BR"
 defaultContentLanguage = "pt-BR"
 

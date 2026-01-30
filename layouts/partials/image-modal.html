@@ -1,0 +1,61 @@
+<!-- Place in layouts > partials > image-modal.html -->
+<!-- Use the partial at the bottom of any page in which you want magnific pop-up images,
+  or simply place at the bottom of baseof.html -->
+<!-- Modal will open upon clicking the image. Modal will close with clicking the x or image. -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <button class="modal-close" onclick="closeModal()" style="position: fixed; top: 1rem; right: 1rem; z-index: 1001;">close</button>
+  <div class="modal-content" style="display: flex; justify-content: center; align-items: flex-start; min-height: 100%; padding: 4rem 2rem 2rem;">
+    <img class="modal-pic" id="modalPic" onclick="closeModal()" style="width: auto; height: auto; display: block; cursor: zoom-out;">
+  </div>
+</div>
+
+<script>
+// Open the Modal
+function openModal(clicked_id) {
+  var element = document.getElementById(clicked_id);
+  if (!element) {
+    console.error('Elemento não encontrado:', clicked_id);
+    return;
+  }
+  
+  var src = element.src;
+  console.log('URL original da imagem:', src);
+  
+  if (src.includes("#")) {
+    src = src.substring(0, src.indexOf( "#" ));
+  };
+  
+  console.log('URL final para o modal:', src);
+  
+  var modalPic = document.getElementById("modalPic");
+  modalPic.src = src;
+  
+  // Verificar se a imagem carregou
+  modalPic.onerror = function() {
+    console.error('Erro ao carregar imagem no modal:', src);
+  };
+  
+  modalPic.onload = function() {
+    console.log('Imagem carregada com sucesso no modal');
+  };
+  
+  document.getElementById("myModal").style.display = "block";
+  
+  // Ensures the site footer is not shown in front of the modal.
+  var footer = document.getElementById("site-footer");
+  if (footer) {
+    footer.style.display = "none";
+  }
+}
+
+// Close the Modal
+function closeModal() { 
+  // prevents flashing last modal image while new id is loading on open
+  document.getElementById("modalPic").src = "";
+  document.getElementById("myModal").style.display = "none";
+  // See note above regarding the footer 
+  document.getElementById("site-footer").style.display = "block";
+}
+</script>

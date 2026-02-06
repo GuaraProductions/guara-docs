@@ -1,0 +1,62 @@
+[resources_title]
+other = "Curated Godot Resource Hub"
+
+[resources_subtitle]
+other = "Plugins, templates, and projects curated for the Godot community."
+
+[search]
+other = "Search"
+
+[search_placeholder]
+other = "Search by title or description"
+
+[filters]
+other = "Filters"
+
+[category]
+other = "Category"
+
+[genre]
+other = "Genre"
+
+[godot_version]
+other = "Godot Version"
+
+[clear_filters]
+other = "Clear filters"
+
+[results]
+other = "results"
+
+[no_results]
+other = "No resources match your filters."
+
+[visit_resource]
+other = "Visit resource"
+
+[tag_plugin]
+other = "Plugin"
+
+[tag_template]
+other = "Template"
+
+[tag_project]
+other = "Project"
+
+[tag_2d]
+other = "2D"
+
+[tag_3d]
+other = "3D"
+
+[tag_tools]
+other = "Tools"
+
+[tag_ui]
+other = "UI"
+
+[tag_audio]
+other = "Audio"
+
+[tag_multiplayer]
+other = "Multiplayer"

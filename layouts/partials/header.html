@@ -6,6 +6,11 @@
     </a>
 
     <nav class="header-links">
+      <button type="button" class="menu-toggle header-menu-toggle" aria-label="Toggle menu" aria-controls="site-sidebar" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="menu-icon">
+          <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
       <a href="https://github.com/GuaraProductions/guara-docs" class="nav-btn github-btn" target="_blank" rel="noopener" aria-label="Guara Docs on GitHub">
         {{ partial "icon" (dict "context" . "name" "fab github" "class" "header-github-svg") }}
       </a>
@@ -91,6 +96,35 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+  }
+
+  .header-menu-toggle {
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    color: var(--color-text-light);
+  }
+
+  .dark .header-menu-toggle {
+    color: var(--color-text-dark);
+  }
+
+  .header-menu-toggle:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .menu-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+  }
+
+  @media (min-width: 769px) {
+    .header-menu-toggle {
+      display: none;
+    }
   }
 
   .github-btn {

@@ -1,24 +1,28 @@
 {{ define "main" }}
-<article class="prose">
-  <h1>{{ .Title }}</h1>
-  <div>
-    {{ .Content }}
-  </div>
-  
-  {{ if .Pages }}
-  <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Páginas</h2>
-  <ul style="list-style: none; padding: 0;">
-    {{ range .Pages }}
-    <li style="margin-bottom: 0.5rem;">
-      <a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none;">
-        {{ .Title }}
-      </a>
-      {{ with .Description }}
-      <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.25rem;">{{ . }}</p>
+  {{ if eq .Section "hub" }}
+    {{ partial "hub/list.html" . }}
+  {{ else }}
+  <article class="prose">
+    <h1>{{ .Title }}</h1>
+    <div>
+      {{ .Content }}
+    </div>
+    
+    {{ if .Pages }}
+    <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Páginas</h2>
+    <ul style="list-style: none; padding: 0;">
+      {{ range .Pages }}
+      <li style="margin-bottom: 0.5rem;">
+        <a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none;">
+          {{ .Title }}
+        </a>
+        {{ with .Description }}
+        <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.25rem;">{{ . }}</p>
+        {{ end }}
+      </li>
       {{ end }}
-    </li>
+    </ul>
     {{ end }}
-  </ul>
+  </article>
   {{ end }}
-</article>
 {{ end }}

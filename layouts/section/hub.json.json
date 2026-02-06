@@ -1,0 +1,20 @@
+{{- $section := .Site.GetPage "section" "hub" -}}
+{{- $pages := slice -}}
+{{- if $section -}}
+  {{- $pages = $section.RegularPages -}}
+{{- end -}}
+{{- $items := slice -}}
+{{- range $pages -}}
+  {{- $items = $items | append (dict
+    "title" .Title
+    "description" (.Params.description | default "")
+    "external_link" (.Params.external_link | default "")
+    "godot_version" (.Params.godot_version | default (slice))
+    "genre" (.Params.genre | default (slice))
+    "category" (.Params.category | default (slice))
+  ) -}}
+{{- end -}}
+{{- dict
+  "updated" (now.UTC.Format "2006-01-02T15:04:05Z")
+  "items" $items
+  | jsonify -}}

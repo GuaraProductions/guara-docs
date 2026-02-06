@@ -4,18 +4,18 @@ theme = 'tailbliss'
 enableEmoji = true
 enableRobotsTXT = true
 
+languageCode = "pt-br"
+defaultContentLanguage = "pt-br"
+
 [params]
   description = "Um site estático para ajudar desenvolvedores no Godot"
   disable_theme_toggle = false
   favicon = false
   svg = true
   faviconVersion = "1"
-  
-languageCode = "pt-BR"
-defaultContentLanguage = "pt-BR"
 
 [languages]
-  [languages.pt-BR]
+  [languages.pt-br]
     languageName = "Português do Brasil"
     weight = 1
   [languages.en]

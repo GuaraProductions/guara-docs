@@ -1,0 +1,110 @@
+[resources_title]
+other = "Central Curada de Recursos Godot"
+
+[resources_subtitle]
+other = "Plugins, modelos e projetos selecionados para a comunidade Godot."
+
+[search]
+other = "Buscar"
+
+[search_placeholder]
+other = "Buscar por título ou descrição"
+
+[filters]
+other = "Filtros"
+
+[category]
+other = "Categoria"
+
+[genre]
+other = "Gênero"
+
+[godot_version]
+other = "Versão do Godot"
+
+[clear_filters]
+other = "Limpar filtros"
+
+[results]
+other = "resultados"
+
+[no_results]
+other = "Nenhum recurso corresponde aos filtros."
+
+[visit_resource]
+other = "Abrir recurso"
+
+[tag_plugin]
+other = "Complemento"
+
+[tag_template]
+other = "Modelo"
+
+[tag_project]
+other = "Projeto"
+
+[tag_2d]
+other = "2D"
+
+[tag_3d]
+other = "3D"
+
+[tag_tools]
+other = "Ferramentas"
+
+[tag_ui]
+other = "UI"
+
+[tag_audio]
+other = "Áudio"
+
+[tag_multiplayer]
+other = "Multijogador"
+
+[tag_games]
+other = "Jogos"
+
+[tag_projects]
+other = "Projetos"
+
+[tag_templates]
+other = "Modelos"
+
+[tag_demos]
+other = "Demonstrações"
+
+[tag_tutorials]
+other = "Tutoriais"
+
+[tag_plugins_and_scripts]
+other = "Plugins e scripts"
+
+[tag_modules]
+other = "Modulos"
+
+[tag_gdscript_c_editor_support]
+other = "Suporte de editor GDScript/C#"
+
+[tag_themes]
+other = "Temas"
+
+[tag_engine_themes]
+other = "Temas do engine"
+
+[tag_syntax_themes]
+other = "Temas de sintaxe"
+
+[tag_unofficial_godot_builds]
+other = "Builds nao oficiais do Godot"
+
+[tag_bash_scripts]
+other = "Scripts Bash"
+
+[tag_websites]
+other = "Sites"
+
+[tag_other]
+other = "Outros"
+
+[tag_xr]
+other = "XR"

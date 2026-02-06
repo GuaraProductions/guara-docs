@@ -1,0 +1,77 @@
+<div class="sidebar-overlay" data-sidebar-overlay></div>
+<aside class="sidebar" id="site-sidebar" aria-hidden="true">
+  <nav>
+    <ul class="nav-list">
+      {{ $currentPage := . }}
+
+      {{/* Root pages */}}
+      {{ range .Site.RegularPages }}
+        {{ if eq .Parent .Site.Home }}
+        <li class="nav-item">
+          <a
+            href="{{ .RelPermalink }}"
+            class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}"
+          >
+            {{ .Title }}
+          </a>
+        </li>
+        {{ end }}
+      {{ end }}
+
+      {{/* Sections with children */}}
+      {{ range .Site.Sections }}
+        {{ $isHub := eq .Section "hub" }}
+        {{ $showChildren := and .Pages (not $isHub) }}
+        <li class="nav-section" data-section="{{ .Title }}">
+          <div class="nav-section-header" {{ if $showChildren }}onclick="toggleSection(this)"{{ end }}>
+            {{ if $showChildren }}
+            <svg class="nav-section-toggle expanded" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}" style="padding: 0; background: none !important;">
+              {{ .Title }}
+            </a>
+          </div>
+          {{ if $showChildren }}
+          <ul class="nav-section-children nav-list">
+            {{ template "nav-tree" (dict "Pages" .Pages "CurrentPage" $currentPage "Level" 1) }}
+          </ul>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </nav>
+</aside>
+
+{{/* Template recursivo para subseções */}}
+{{ define "nav-tree" }}
+  {{ range .Pages }}
+    {{ if .Pages }}
+      {{/* É uma subseção com páginas */}}
+      <li class="nav-section" data-section="{{ .Title }}">
+        <div class="nav-section-header" onclick="toggleSection(this)">
+          <svg class="nav-section-toggle expanded" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <a href="{{ .RelPermalink }}" class="nav-link {{ if eq .RelPermalink $.CurrentPage.RelPermalink }}active{{ end }}" style="padding: 0; background: none !important;">
+            {{ .Title }}
+          </a>
+        </div>
+        <ul class="nav-section-children nav-list">
+          {{ template "nav-tree" (dict "Pages" .Pages "CurrentPage" $.CurrentPage "Level" (add $.Level 1)) }}
+        </ul>
+      </li>
+    {{ else }}
+      {{/* É uma página sem subpáginas */}}
+      <li class="nav-item">
+        <a
+          href="{{ .RelPermalink }}"
+          class="nav-link {{ if eq .RelPermalink $.CurrentPage.RelPermalink }}active{{ end }}"
+        >
+          {{ .Title }}
+        </a>
+      </li>
+    {{ end }}
+  {{ end }}
+{{ end }}

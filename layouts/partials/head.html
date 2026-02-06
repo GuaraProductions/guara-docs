@@ -7,6 +7,11 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 
+<script>
+  tailwind = { config: { darkMode: 'class' } };
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
 <!-- Dark mode toggle script - Default to dark mode -->
 <script>
   // Default to light mode unless user explicitly chose dark mode

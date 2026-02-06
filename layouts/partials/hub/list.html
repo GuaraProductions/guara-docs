@@ -1,0 +1,547 @@
+{{- $section := .Site.GetPage "section" "hub" -}}
+{{- $pages := slice -}}
+{{- if $section -}}
+  {{- $pages = $section.RegularPages -}}
+{{- end -}}
+{{- $tagSet := dict -}}
+{{- $items := slice -}}
+{{- range $pages -}}
+  {{- $items = $items | append (dict
+    "title" .Title
+    "description" (.Params.description | default "")
+    "external_link" (.Params.external_link | default "")
+    "godot_version" (.Params.godot_version | default (slice))
+    "genre" (.Params.genre | default (slice))
+    "category" (.Params.category | default (slice))
+  ) -}}
+  {{- range (.Params.category | default (slice)) -}}
+    {{- $tagSet = merge $tagSet (dict . true) -}}
+  {{- end -}}
+  {{- range (.Params.genre | default (slice)) -}}
+    {{- $tagSet = merge $tagSet (dict . true) -}}
+  {{- end -}}
+{{- end -}}
+{{- $translationMap := dict -}}
+{{- range $tag, $_ := $tagSet -}}
+  {{- $key := printf "tag_%s" (replace (lower (urlize $tag)) "-" "_") -}}
+  {{- $translationMap = merge $translationMap (dict $tag (T $key)) -}}
+{{- end -}}
+<style>
+  .hub-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+  }
+
+  .hub-card:hover {
+    border-color: #bfdbfe;
+  }
+
+  .hub-card-title {
+    color: #0f172a;
+  }
+
+  .hub-card-desc {
+    color: #475569;
+  }
+
+  .hub-tag {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  .hub-version {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #2563eb;
+  }
+
+  .hub-link {
+    color: #2563eb;
+  }
+
+  .hub-link:hover {
+    color: #1d4ed8;
+  }
+
+  .dark .hub-card {
+    background: #0f172a;
+    border-color: #1f2937;
+  }
+
+  .dark .hub-card:hover {
+    border-color: #1d4ed8;
+  }
+
+  .dark .hub-card-title {
+    color: #f8fafc;
+  }
+
+  .dark .hub-card-desc {
+    color: #cbd5f5;
+  }
+
+  .dark .hub-tag {
+    background: #1f2937;
+    color: #e2e8f0;
+  }
+
+  .dark .hub-version {
+    background: #1e293b;
+    border-color: #1e40af;
+    color: #93c5fd;
+  }
+
+  .dark .hub-link {
+    color: #93c5fd;
+  }
+
+  .dark .hub-link:hover {
+    color: #bfdbfe;
+  }
+
+  .hub-panel {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+
+  .hub-toolbar {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+
+  .hub-filter-toggle {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+  }
+
+  .hub-filter-count {
+    background: #e2e8f0;
+    color: #64748b;
+  }
+
+  .hub-input {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+  }
+
+  .hub-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .hub-clear {
+    border-color: #e2e8f0;
+    color: #64748b;
+  }
+
+  .hub-filter-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+  }
+
+  .hub-filter-item:hover {
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+  }
+
+  .hub-filter-badge {
+    background: #0f172a;
+    color: #f8fafc;
+  }
+
+  .hub-title {
+    color: #1f2937;
+  }
+
+  .dark .hub-title {
+    color: #f8fafc;
+  }
+
+  .dark .hub-panel,
+  .dark .hub-toolbar {
+    background: #0f172a;
+    border-color: #1f2937;
+  }
+
+  .dark .hub-filter-toggle {
+    background: #0b1220;
+    border-color: #1f2937;
+    color: #e2e8f0;
+  }
+
+  .dark .hub-filter-count {
+    background: #1f2937;
+    color: #cbd5f5;
+  }
+
+  .dark .hub-input {
+    background: #0b1220;
+    border-color: #1f2937;
+    color: #e2e8f0;
+  }
+
+  .dark .hub-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .dark .hub-clear {
+    border-color: #1f2937;
+    color: #cbd5f5;
+  }
+
+  .dark .hub-filter-item {
+    background: #0b1220;
+    border-color: #1f2937;
+    color: #e2e8f0;
+  }
+
+  .dark .hub-filter-item:hover {
+    border-color: #1d4ed8;
+    color: #bfdbfe;
+  }
+
+  .dark .hub-filter-badge {
+    background: #1f2937;
+    color: #e2e8f0;
+  }
+</style>
+<div class="mx-auto w-full max-w-none px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-6 space-y-2">
+    <h1 class="hub-title text-3xl font-extrabold tracking-tight">{{ T "resources_title" }}</h1>
+    <p class="text-slate-600 dark:text-slate-300">{{ T "resources_subtitle" }}</p>
+  </div>
+
+  <div id="resources-app"
+    data-index-url="{{ .RelPermalink }}index.json"
+    data-tag-translations='{{ $translationMap | jsonify | safeHTMLAttr }}'
+    data-labels='{{ (dict
+      "resultsLabel" (T "results")
+      "visitResource" (T "visit_resource")
+      "categoryLabel" (T "category")
+      "genreLabel" (T "genre")
+      "versionLabel" (T "godot_version")
+    ) | jsonify | safeHTMLAttr }}'
+    class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+    <aside class="hub-panel lg:col-span-3 self-start rounded-2xl p-5 shadow-sm backdrop-blur [&_input]:accent-blue-500 [&_label]:cursor-pointer">
+      <div class="space-y-4">
+        <div>
+          <label for="search-input" class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{{ T "search" }}</label>
+          <input id="search-input" type="search" placeholder="{{ T "search_placeholder" }}" class="hub-input mt-2 w-full rounded-xl px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" />
+        </div>
+
+        <div class="space-y-4">
+          <div class="filter-group" data-group="category">
+            <button type="button" class="hub-filter-toggle filter-toggle flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold shadow-sm transition hover:border-blue-200 hover:text-blue-600">
+              <span>{{ T "category" }}</span>
+              <span class="hub-filter-count filter-count rounded-full px-2 py-0.5 text-xs font-semibold"></span>
+            </button>
+            <div id="filter-category" class="filter-panel mt-3 hidden max-h-64 space-y-2 overflow-y-auto pr-1"></div>
+          </div>
+          <div class="filter-group" data-group="genre">
+            <button type="button" class="hub-filter-toggle filter-toggle flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold shadow-sm transition hover:border-blue-200 hover:text-blue-600">
+              <span>{{ T "genre" }}</span>
+              <span class="hub-filter-count filter-count rounded-full px-2 py-0.5 text-xs font-semibold"></span>
+            </button>
+            <div id="filter-genre" class="filter-panel mt-3 hidden max-h-64 space-y-2 overflow-y-auto pr-1"></div>
+          </div>
+          <div class="filter-group" data-group="version">
+            <button type="button" class="hub-filter-toggle filter-toggle flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold shadow-sm transition hover:border-blue-200 hover:text-blue-600">
+              <span>{{ T "godot_version" }}</span>
+              <span class="hub-filter-count filter-count rounded-full px-2 py-0.5 text-xs font-semibold"></span>
+            </button>
+            <div id="filter-version" class="filter-panel mt-3 hidden max-h-64 space-y-2 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="lg:col-span-9">
+      <div class="hub-toolbar mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-sm backdrop-blur">
+        <p id="results-count" class="text-sm text-slate-600 dark:text-slate-300"></p>
+        <button id="clear-filters" type="button" class="hub-clear rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition hover:border-blue-200 hover:text-blue-600">{{ T "clear_filters" }}</button>
+      </div>
+
+      <div id="results-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <div id="no-results" class="hidden rounded-2xl border border-dashed border-slate-300 p-6 text-center text-slate-500 dark:border-slate-700 dark:text-slate-400">{{ T "no_results" }}</div>
+    </section>
+  </div>
+</div>
+
+<script type="application/json" id="hub-items">{{ $items | jsonify }}</script>
+<script>
+  (() => {
+    const app = document.getElementById("resources-app");
+    if (!app) return;
+
+    const indexUrl = app.dataset.indexUrl;
+    const searchInput = document.getElementById("search-input");
+    const resultsGrid = document.getElementById("results-grid");
+    const noResults = document.getElementById("no-results");
+    const resultsCount = document.getElementById("results-count");
+    const clearFilters = document.getElementById("clear-filters");
+    const filterContainers = {
+      category: document.getElementById("filter-category"),
+      genre: document.getElementById("filter-genre"),
+      version: document.getElementById("filter-version")
+    };
+    const filterGroups = Array.from(document.querySelectorAll(".filter-group"));
+
+    const translations = app.dataset.tagTranslations ? JSON.parse(app.dataset.tagTranslations) : {};
+    const labels = app.dataset.labels ? JSON.parse(app.dataset.labels) : {};
+
+    const state = {
+      query: "",
+      category: new Set(),
+      genre: new Set(),
+      version: new Set()
+    };
+
+    const escapeHtml = (value) => String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+    const translateTag = (value) => translations[value] || value;
+
+    const parseQueryParams = () => {
+      const params = new URLSearchParams(window.location.search);
+      state.query = params.get("q") || "";
+      searchInput.value = state.query;
+      ["category", "genre", "version"].forEach((key) => {
+        state[key].clear();
+        const value = params.get(key);
+        if (value) {
+          value.split(",").map((item) => item.trim()).filter(Boolean).forEach((item) => state[key].add(item));
+        }
+      });
+    };
+
+    const updateQueryParams = () => {
+      const params = new URLSearchParams();
+      if (state.query) params.set("q", state.query);
+      ["category", "genre", "version"].forEach((key) => {
+        if (state[key].size) {
+          params.set(key, Array.from(state[key]).join(","));
+        }
+      });
+      const newUrl = `${window.location.pathname}?${params.toString()}`.replace(/\?$/, "");
+      window.history.replaceState({}, "", newUrl);
+    };
+
+    const buildOptionStats = (items) => {
+      const stats = {
+        category: new Map(),
+        genre: new Map(),
+        version: new Map()
+      };
+      items.forEach((item) => {
+        (item.category || []).forEach((value) => stats.category.set(value, (stats.category.get(value) || 0) + 1));
+        (item.genre || []).forEach((value) => stats.genre.set(value, (stats.genre.get(value) || 0) + 1));
+        (item.godot_version || []).forEach((value) => stats.version.set(value, (stats.version.get(value) || 0) + 1));
+      });
+      return stats;
+    };
+
+    const updateSelectedCount = (key) => {
+      const container = filterContainers[key];
+      if (!container) return;
+      const group = container.closest(".filter-group");
+      if (!group) return;
+      const countEl = group.querySelector(".filter-count");
+      if (!countEl) return;
+      const selectedCount = state[key].size;
+      countEl.textContent = selectedCount ? `${selectedCount}` : "0";
+      countEl.classList.toggle("opacity-50", !selectedCount);
+    };
+
+    const renderFilterGroup = (container, key, options) => {
+      container.innerHTML = "";
+      const sorted = Array.from(options.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+      sorted.forEach(([value, count]) => {
+        const id = `${key}-${value}`.replace(/\s+/g, "-").toLowerCase();
+        const wrapper = document.createElement("label");
+        wrapper.className = "hub-filter-item flex items-center justify-between rounded-xl px-3 py-2 text-sm transition";
+
+        const left = document.createElement("span");
+        left.className = "flex items-center gap-2";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = id;
+        input.value = value;
+        input.checked = state[key].has(value);
+        input.addEventListener("change", () => {
+          if (input.checked) {
+            state[key].add(value);
+          } else {
+            state[key].delete(value);
+          }
+          updateQueryParams();
+          updateSelectedCount(key);
+          applyFilters();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = translateTag(value);
+
+        left.appendChild(input);
+        left.appendChild(text);
+
+        const badge = document.createElement("span");
+        badge.className = "hub-filter-badge rounded-full px-2 py-0.5 text-xs font-semibold";
+        badge.textContent = count;
+
+        wrapper.appendChild(left);
+        wrapper.appendChild(badge);
+        container.appendChild(wrapper);
+      });
+
+      updateSelectedCount(key);
+    };
+
+    const matchesGroup = (values, selected) => {
+      if (!selected.size) return true;
+      return values && values.some((value) => selected.has(value));
+    };
+
+    const filterItems = (items) => {
+      const query = state.query.toLowerCase();
+      return items.filter((item) => {
+        const text = `${item.title} ${item.description}`.toLowerCase();
+        if (query && !text.includes(query)) return false;
+        if (!matchesGroup(item.category, state.category)) return false;
+        if (!matchesGroup(item.genre, state.genre)) return false;
+        if (!matchesGroup(item.godot_version, state.version)) return false;
+        return true;
+      });
+    };
+
+    const renderResults = (items) => {
+      resultsGrid.innerHTML = "";
+      if (!items.length) {
+        noResults.classList.remove("hidden");
+        resultsCount.textContent = "";
+        return;
+      }
+      noResults.classList.add("hidden");
+      resultsCount.textContent = `${items.length} ${labels.resultsLabel || "results"}`;
+
+      items.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "hub-card group flex h-full flex-col rounded-2xl p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg";
+
+        const title = document.createElement("h3");
+        title.className = "hub-card-title text-lg font-semibold transition group-hover:text-blue-600";
+        title.textContent = item.title;
+
+        const description = document.createElement("p");
+        description.className = "hub-card-desc mt-2 text-sm";
+        description.textContent = item.description;
+
+        const badges = document.createElement("div");
+        badges.className = "mt-4 flex flex-wrap gap-2";
+
+        const allTags = [...(item.category || []), ...(item.genre || [])];
+        allTags.forEach((tag) => {
+          const badge = document.createElement("span");
+          badge.className = "hub-tag rounded-full px-3 py-1 text-xs font-semibold";
+          badge.textContent = translateTag(tag);
+          badges.appendChild(badge);
+        });
+
+        (item.godot_version || []).forEach((version) => {
+          const badge = document.createElement("span");
+          badge.className = "hub-version rounded-full px-3 py-1 text-xs font-semibold";
+          badge.textContent = version;
+          badges.appendChild(badge);
+        });
+
+        const footer = document.createElement("div");
+        footer.className = "mt-auto pt-4";
+
+        const link = document.createElement("a");
+        link.href = item.external_link || "#";
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.className = "hub-link inline-flex items-center gap-2 text-sm font-semibold transition";
+        link.innerHTML = `${escapeHtml(labels.visitResource || "Visit")}`;
+
+        footer.appendChild(link);
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(badges);
+        card.appendChild(footer);
+        resultsGrid.appendChild(card);
+      });
+    };
+
+    const applyFilters = () => {
+      const filtered = filterItems(window.resourceItems || []);
+      renderResults(filtered);
+    };
+
+    const initialize = (items) => {
+      window.resourceItems = items;
+      parseQueryParams();
+      const stats = buildOptionStats(items);
+      renderFilterGroup(filterContainers.category, "category", stats.category);
+      renderFilterGroup(filterContainers.genre, "genre", stats.genre);
+      renderFilterGroup(filterContainers.version, "version", stats.version);
+      applyFilters();
+    };
+
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value.trim();
+      updateQueryParams();
+      applyFilters();
+    });
+
+    clearFilters.addEventListener("click", () => {
+      state.query = "";
+      searchInput.value = "";
+      ["category", "genre", "version"].forEach((key) => state[key].clear());
+      updateQueryParams();
+      const stats = buildOptionStats(window.resourceItems || []);
+      renderFilterGroup(filterContainers.category, "category", stats.category);
+      renderFilterGroup(filterContainers.genre, "genre", stats.genre);
+      renderFilterGroup(filterContainers.version, "version", stats.version);
+      applyFilters();
+    });
+
+    filterGroups.forEach((group) => {
+      const toggle = group.querySelector(".filter-toggle");
+      const panel = group.querySelector(".filter-panel");
+      if (!toggle || !panel) return;
+      toggle.addEventListener("click", () => {
+        panel.classList.toggle("hidden");
+      });
+    });
+
+    const normalizeItems = (value) => Array.isArray(value) ? value : [];
+
+    const embeddedItemsEl = document.getElementById("hub-items");
+    const embeddedItems = embeddedItemsEl ? normalizeItems(JSON.parse(embeddedItemsEl.textContent || "[]")) : [];
+
+    const useItems = (items, source) => {
+      const safeItems = normalizeItems(items);
+      console.debug("[hub] items source:", source, "count:", safeItems.length);
+      initialize(safeItems);
+    };
+
+    fetch(indexUrl)
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => {
+        const items = normalizeItems(data?.items ?? data);
+        if (items.length) {
+          useItems(items, "index.json");
+        } else {
+          useItems(embeddedItems || [], "embedded-fallback");
+        }
+      })
+      .catch(() => useItems(embeddedItems || [], "embedded-fallback"));
+  })();
+</script>

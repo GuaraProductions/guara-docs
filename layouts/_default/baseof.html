@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" class="dark">
+<html lang="{{ .Site.LanguageCode }}">
 <head>
   {{ partial "head.html" . }}
-  
-  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
   
   <style>
     /* Layout Variables & Base */
@@ -44,7 +42,12 @@
       margin-left: var(--sidebar-width);
       flex: 1;
       padding: 2.5rem;
-      max-width: 65rem; /* Aumentado para acomodar diagramas maiores */
+      max-width: none;
+      width: 100%;
+    }
+
+    .content--full {
+      margin-left: 0;
     }
     
     /* Estilização da Busca */
@@ -172,6 +175,21 @@
     }
     
     .hidden { display: none; }
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: var(--header-height) 0 0 0;
+      background: rgba(2, 6, 23, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 20;
+    }
+
+    .sidebar-open .sidebar-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
     
     /* Responsividade */
     @media (max-width: 1024px) {
@@ -182,12 +200,18 @@
     @media (max-width: 768px) {
       .layout-container { flex-direction: column; }
       .sidebar { 
-        position: relative; 
-        top: 0; 
-        width: 100%; 
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border-light);
+        position: fixed; 
+        top: var(--header-height);
+        left: 0;
+        width: min(85vw, 320px);
+        height: calc(100vh - var(--header-height));
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+        border-right: 1px solid var(--color-border-light);
+        border-bottom: none;
+      }
+      .sidebar-open .sidebar {
+        transform: translateX(0);
       }
       .content { margin-left: 0; padding: 1.5rem; }
     }
@@ -197,51 +221,16 @@
   {{ partial "header.html" . }}
   
   <div class="layout-container">
-    <aside class="sidebar">
-      <nav>
-        <ul class="nav-list">
-          {{ $currentPage := . }}
-          
-          {{/* Páginas na raiz */}}
-          {{ range .Site.RegularPages }}
-            {{ if eq .Parent .Site.Home }}
-            <li class="nav-item">
-              <a 
-                href="{{ .RelPermalink }}" 
-                class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}"
-              >
-                {{ .Title }}
-              </a>
-            </li>
-            {{ end }}
-          {{ end }}
-          
-          {{/* Seções com subpáginas */}}
-          {{ range .Site.Sections }}
-            <li class="nav-section" data-section="{{ .Title }}">
-              <div class="nav-section-header" onclick="toggleSection(this)">
-                <svg class="nav-section-toggle expanded" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <a href="{{ .RelPermalink }}" class="nav-link {{ if eq .RelPermalink $currentPage.RelPermalink }}active{{ end }}" style="padding: 0; background: none !important;">
-                  {{ .Title }}
-                </a>
-              </div>
-              {{ if .Pages }}
-              <ul class="nav-section-children nav-list">
-                {{ template "nav-tree" (dict "Pages" .Pages "CurrentPage" $currentPage "Level" 1) }}
-              </ul>
-              {{ end }}
-            </li>
-          {{ end }}
-        </ul>
-      </nav>
-    </aside>
+    {{ partial "sidebar.html" . }}
     
     <main class="content">
+      {{ if eq .Section "hub" }}
+        {{ block "main" . }}{{ end }}
+      {{ else }}
       <article class="prose dark:prose-invert">
         {{ block "main" . }}{{ end }}
       </article>
+      {{ end }}
     </main>
   </div>
   
@@ -258,40 +247,43 @@
         children.classList.toggle('collapsed');
       }
     }
+
+    (() => {
+      const toggleButton = document.querySelector('.header-menu-toggle');
+      const sidebar = document.getElementById('site-sidebar');
+      const overlay = document.querySelector('[data-sidebar-overlay]');
+
+      if (!toggleButton || !sidebar || !overlay) return;
+
+      const closeSidebar = () => {
+        document.body.classList.remove('sidebar-open');
+        toggleButton.setAttribute('aria-expanded', 'false');
+        sidebar.setAttribute('aria-hidden', 'true');
+      };
+
+      const openSidebar = () => {
+        document.body.classList.add('sidebar-open');
+        toggleButton.setAttribute('aria-expanded', 'true');
+        sidebar.setAttribute('aria-hidden', 'false');
+      };
+
+      toggleButton.addEventListener('click', () => {
+        if (document.body.classList.contains('sidebar-open')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      overlay.addEventListener('click', closeSidebar);
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeSidebar();
+      });
+    })();
   </script>
   {{ partial "image-modal.html" . }}
   {{ partial "icon-data" . }}
 </body>
 </html>
 
-{{/* Template recursivo para subseções */}}
-{{ define "nav-tree" }}
-  {{ range .Pages }}
-    {{ if .Pages }}
-      {{/* É uma subseção com páginas */}}
-      <li class="nav-section" data-section="{{ .Title }}">
-        <div class="nav-section-header" onclick="toggleSection(this)">
-          <svg class="nav-section-toggle expanded" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-          </svg>
-          <a href="{{ .RelPermalink }}" class="nav-link {{ if eq .RelPermalink $.CurrentPage.RelPermalink }}active{{ end }}" style="padding: 0; background: none !important;">
-            {{ .Title }}
-          </a>
-        </div>
-        <ul class="nav-section-children nav-list">
-          {{ template "nav-tree" (dict "Pages" .Pages "CurrentPage" $.CurrentPage "Level" (add $.Level 1)) }}
-        </ul>
-      </li>
-    {{ else }}
-      {{/* É uma página sem subpáginas */}}
-      <li class="nav-item">
-        <a 
-          href="{{ .RelPermalink }}" 
-          class="nav-link {{ if eq .RelPermalink $.CurrentPage.RelPermalink }}active{{ end }}"
-        >
-          {{ .Title }}
-        </a>
-      </li>
-    {{ end }}
-  {{ end }}
-{{ end }}

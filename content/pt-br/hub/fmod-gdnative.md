@@ -1,0 +1,13 @@
+---
+title: "FMOD GDNative"
+date: 2026-02-06
+draft: false
+external_link: "https://github.com/utopia-rise/fmod-gdnative"
+godot_version: ["4"]
+genre: []
+category: ["Plugins and scripts"]
+description: "Plugin para usar o motor de áudio FMOD no GDScript."
+build:
+  render: "never"
+  list: "always"
+---

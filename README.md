@@ -1,84 +1,84 @@
 # Guara Docs
 
-Um site estático para ajudar desenvolvedores no Godot, construído com Hugo e hospedado no GitHub Pages.
+A static site to help Godot developers, built with Hugo and hosted on GitHub Pages.
 
-### Pré-requisitos
+### Prerequisites
 
-- Hugo 0.100.0 ou superior
-- Node.js (para conversão de Excalidraw)
+- Hugo 0.100.0 or later
+- Node.js (for Excalidraw conversion)
 
-### Instalação
+### Installation
 
 ```bash
-# Clone o repositório
+# Clone the repository
 git clone https://github.com/GuaraProductions/guara-docs.git
 cd guara-docs
 
-# Execute o servidor de desenvolvimento
+# Run the development server
 hugo server -D
 ```
 
-Acesse http://localhost:1313
+Open http://localhost:1313
 
 ## 🚀 Deploy
 
-O site é automaticamente deployado no GitHub Pages quando há push na branch `main`. O workflow de deploy:
+The site is automatically deployed to GitHub Pages on pushes to the `main` branch. The deployment workflow:
 
-1. Instala o Hugo (versão 0.128.0 extended)
-2. Faz build do site com otimizações (`--gc --minify`)
-3. Faz deploy no GitHub Pages
+1. Installs Hugo (version 0.128.0 extended)
+2. Builds the site with optimizations (`--gc --minify`)
+3. Deploys to GitHub Pages
 
-**URL do site**: https://guaraproductions.github.io/guara-docs/
+**Site URL**: https://guaraproductions.github.io/guara-docs/
 
-Para fazer deploy manual:
-1. Vá em Actions no GitHub
-2. Selecione o workflow "Deploy Hugo site to Pages"
-3. Clique em "Run workflow"
-   
-## 🤝 Contribuindo
+To deploy manually:
+1. Go to Actions on GitHub
+2. Select the workflow "Deploy Hugo site to Pages"
+3. Click "Run workflow"
 
-Contribuições são bem-vindas! Veja como:
+## 🤝 Contributing
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Add: Minha feature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
+Contributions are welcome! Here's how:
 
-## 🧩 Adicionar ao Hub
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/MyFeature`)
+3. Commit your changes (`git commit -m 'Add: My feature'`)
+4. Push to the branch (`git push origin feature/MyFeature`)
+5. Open a Pull Request
 
-Para adicionar um projeto na lista do hub:
+## 🧩 Add to the Hub
 
-1. Crie um arquivo Markdown em [content/hub](content/hub) usando como base o archetype [archetypes/resources.md](archetypes/resources.md).
-2. Preencha os campos obrigatorios do front matter (titulo, descricao, categoria, genero, versao do Godot e link externo).
-3. Salve o arquivo com um nome curto e descritivo (slug), por exemplo: `meu-projeto.md`.
+To add a project to the hub list:
 
-Exemplo minimo:
+1. Create a Markdown file in [content/hub](content/hub) using the archetype [archetypes/resources.md](archetypes/resources.md) as a base.
+2. Fill in the required front matter fields (title, description, category, genre, Godot version, and external link).
+3. Save the file with a short, descriptive name (slug), for example: `my-project.md`.
+
+Minimal example:
 
 ```md
 ---
-title: "Meu Projeto"
+title: "My Project"
 date: 2026-02-06
 draft: false
-external_link: "https://exemplo.com"
+external_link: "https://example.com"
 godot_version: ["4"]
 genre: ["2D"]
 category: ["Games"]
-description: "Descricao curta do projeto."
+description: "Short description of the project."
 build:
 	render: "never"
 	list: "always"
 ---
 ```
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+This project is licensed under the MIT license. See [LICENSE](LICENSE) for details.
 
-## 💡 Suporte
+## 💡 Support
 
-Para reportar bugs ou sugerir melhorias, abra uma [issue](https://github.com/GuaraProductions/guara-docs/issues).
+To report bugs or suggest improvements, open an [issue](https://github.com/GuaraProductions/guara-docs/issues).
 
-## 🙏 Creditos
+## 🙏 Credits
 
-A versao inicial da lista curada foi baseada na lista do projeto [awesome-godot](https://github.com/godotengine/awesome-godot) (licenca CC-BY-4.0).
+The initial version of the curated list was based on the [awesome-godot](https://github.com/godotengine/awesome-godot) list (CC-BY-4.0 license).

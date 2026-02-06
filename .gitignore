@@ -7,6 +7,8 @@
 *.dll
 *.so
 *.dylib
+.env
+.translate_cache.json
 
 # Test binary, built with `go test -c`
 *.test

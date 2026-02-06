@@ -1,0 +1,13 @@
+---
+title: "gd2cs.py"
+date: 2026-02-06
+draft: false
+external_link: "https://github.com/kiriri/gd2cs.py"
+godot_version: []
+genre: []
+category: ["Other"]
+description: "Script Python que converte código GDScript para C# (Em andamento)."
+build:
+  render: "never"
+  list: "always"
+---

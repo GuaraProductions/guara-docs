@@ -6,6 +6,7 @@ enableRobotsTXT = true
 
 languageCode = "pt-br"
 defaultContentLanguage = "pt-br"
+defaultContentLanguageInSubdir = true
 
 [params]
   description = "Um site estático para ajudar desenvolvedores no Godot"
@@ -18,9 +19,11 @@ defaultContentLanguage = "pt-br"
   [languages.pt-br]
     languageName = "Português do Brasil"
     weight = 1
+    contentDir = "content/pt-br"
   [languages.en]
     languageName = "English"
     weight = 2
+    contentDir = "content/en"
 
 [module]
   [[module.imports]]

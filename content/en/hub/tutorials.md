@@ -3,9 +3,9 @@ title: "Tutorials"
 date: 2026-02-06
 draft: false
 external_link: "#tutorials"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Contents"]
+category: ["Contents", "Tutorials"]
 description: ""
 build:
   render: "never"

@@ -3,9 +3,9 @@ title: "Modules"
 date: 2026-02-06
 draft: false
 external_link: "#modules"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Contents"]
+category: ["Contents", "Modules"]
 description: ""
 build:
   render: "never"

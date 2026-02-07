@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/empyreanx/godot-state-sync-demo"
 godot_version: ["2"]
-genre: []
-category: ["Demos"]
+genre: ["Multiplayer"]
+category: ["Demos", "Networking"]
 description: "A more efficient networking demo than the snapshot interpolation one."
 build:
   render: "never"

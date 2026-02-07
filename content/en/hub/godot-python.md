@@ -3,9 +3,9 @@ title: "godot-python"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/touilleMan/godot-python"
-godot_version: ["3"]
+godot_version: ["3", "module"]
 genre: []
-category: ["Modules"]
+category: ["Modules", "GDScript/C# editor support"]
 description: "Python support for Godot 3."
 build:
   render: "never"

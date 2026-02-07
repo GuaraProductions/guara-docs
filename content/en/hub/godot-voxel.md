@@ -3,9 +3,9 @@ title: "godot-voxel"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/Zylann/godot_voxel"
-godot_version: ["4"]
-genre: []
-category: ["Modules"]
+godot_version: ["4", "module"]
+genre: ["3D", "Sandbox"]
+category: ["Modules", "Generator"]
 description: "Module for creating volumetric worlds."
 build:
   render: "never"

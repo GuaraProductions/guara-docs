@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/nezvers/Godot-GameTemplate"
 godot_version: ["4"]
-genre: []
+genre: ["2D"]
 category: ["Templates"]
 description: "Template with all necessary stuff taken care of. Designed for pixel art games."
 build:

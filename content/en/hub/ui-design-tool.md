@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/imjp94/UIDesignTool"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "UI"]
 description: "Intuitive design workflow for UIs in the editor."
 build:
   render: "never"

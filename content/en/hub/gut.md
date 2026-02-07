@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/bitwes/Gut"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Testing"]
 description: "Utility for writing unit tests in GDScript."
 build:
   render: "never"

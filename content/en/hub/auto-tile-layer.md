@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/leezh/autotile"
 godot_version: ["2"]
-genre: []
+genre: ["2D"]
 category: ["Plugins and scripts"]
 description: "Allows automatic 2D tiling using RPG Maker's Autotile format."
 build:

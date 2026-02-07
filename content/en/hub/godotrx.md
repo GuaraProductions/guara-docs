@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/semickolon/GodotRx"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Automation"]
 description: "Reactive extensions for Godot C# (Mono)."
 build:
   render: "never"

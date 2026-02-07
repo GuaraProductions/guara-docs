@@ -1,12 +1,12 @@
 ---
-title: "godot-launcher"
+title: "Launcher Godot"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/sebastianoboem/godot-launcher"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Other"]
-description: "Um aplicativo de desktop construído com Python que simplifica o gerenciamento do ambiente de desenvolvimento do Godot Engine."
+category: ["Other", "Tools"]
+description: "Aplicação desktop para gerenciar versões do motor."
 build:
   render: "never"
   list: "always"

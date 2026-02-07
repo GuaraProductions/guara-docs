@@ -5,8 +5,8 @@ draft: false
 external_link: "https://github.com/effekseer/EffekseerForGodot3"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
-description: "Import [Effekseer](https://effekseer.github.io/en/) particle effects."
+category: ["Plugins and scripts", "Importer/Exporter"]
+description: "Import Effekseer particle effects."
 build:
   render: "never"
   list: "always"

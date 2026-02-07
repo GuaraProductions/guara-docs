@@ -3,9 +3,9 @@ title: "FMOD GD4"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/summertimejordi/fmod_gd4"
-godot_version: ["4"]
+godot_version: ["4", "module"]
 genre: []
-category: ["Modules"]
+category: ["Modules", "Audio"]
 description: "Integração da API FMOD Studio."
 build:
   render: "never"

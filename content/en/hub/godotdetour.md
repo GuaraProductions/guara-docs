@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/TheSHEEEP/godotdetour"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Automation"]
 description: "A GDNative implementation of the detour/detourcrowd library."
 build:
   render: "never"

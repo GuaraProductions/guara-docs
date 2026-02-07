@@ -3,9 +3,9 @@ title: "Bash scripts"
 date: 2026-02-06
 draft: false
 external_link: "#bash-scripts"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Contents"]
+category: ["Bash scripts"]
 description: ""
 build:
   render: "never"

@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/lesleyrs/clipboard-narrator"
 godot_version: ["4"]
 genre: []
-category: ["Projects"]
+category: ["Projects", "Tools"]
 description: "Turn any web page into an audiobook, works in the background on desktop!"
 build:
   render: "never"

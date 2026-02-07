@@ -6,6 +6,30 @@
     </a>
 
     <nav class="header-links">
+      {{ $current := . }}
+      {{ $translationMap := dict }}
+      {{ range $current.AllTranslations }}
+        {{ $translationMap = merge $translationMap (dict .Lang .RelPermalink) }}
+      {{ end }}
+      <label class="lang-select-label" for="lang-select">{{ T "language" | default "Language" }}</label>
+      <select
+        id="lang-select"
+        class="lang-select"
+        aria-label="{{ T "language" | default "Language" }}"
+        onchange="if (this.value) { window.location.href = this.value; }"
+      >
+        {{ range .Sites }}
+          {{ $lang := .Language.Lang }}
+          {{ $label := .Language.LanguageName | default $lang }}
+          {{ $target := index $translationMap $lang }}
+          {{ if not $target }}
+            {{ $target = .Home.RelPermalink }}
+          {{ end }}
+          <option value="{{ $target }}" {{ if eq $current.Site.Language.Lang $lang }}selected{{ end }}>
+            {{ $label }}
+          </option>
+        {{ end }}
+      </select>
       <button type="button" class="menu-toggle header-menu-toggle" aria-label="Toggle menu" aria-controls="site-sidebar" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true" class="menu-icon">
           <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -96,6 +120,53 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+  }
+
+  .lang-select-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .lang-select {
+    appearance: none;
+    background: var(--color-bg-light);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    color: var(--color-text-light);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.35rem 2rem 0.35rem 0.75rem;
+    cursor: pointer;
+    line-height: 1.2;
+  }
+
+  .lang-select:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+  }
+
+  .lang-select:hover {
+    border-color: #bfdbfe;
+  }
+
+  .lang-select {
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 1rem) 0.65rem, calc(100% - 0.7rem) 0.65rem;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  .dark .lang-select {
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    border-color: #1f2937;
   }
 
   .header-menu-toggle {

@@ -3,9 +3,9 @@ title: "WaterSplash 2D node"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/laverneth/water"
-godot_version: ["unknown"]
-genre: []
-category: ["Modules"]
+godot_version: ["unknown", "module"]
+genre: ["2D"]
+category: ["Modules", "Physics"]
 description: ""
 build:
   render: "never"

@@ -5,7 +5,7 @@ draft: false
 external_link: "https://gitlab.com/atnb/xsm"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Automation"]
 description: "A fully-featured hierarchical State Machine with parallel states, easy animation, random states and more."
 build:
   render: "never"

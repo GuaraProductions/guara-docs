@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://codeberg.org/dulvui/99managers-futsal-edition"
 godot_version: ["4"]
-genre: ["2D"]
+genre: ["2D", "Sports", "Simulation"]
 category: ["Games"]
 description: "A simple free/libre Futsal team-management game."
 build:

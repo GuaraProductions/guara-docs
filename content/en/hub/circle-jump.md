@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/kidscancode/circle_jump"
 godot_version: ["3"]
-genre: ["2D"]
-category: ["Games"]
+genre: ["2D", "Casual"]
+category: ["Games", "Tutorials"]
 description: "Mobile arcade game, addicting and enjoyable. How-to-made tutorial is available, so you can recreate it yourself and learn Godot."
 build:
   render: "never"

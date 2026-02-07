@@ -5,7 +5,7 @@ draft: false
 external_link: "https://codeberg.org/svetogam/creverter"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Tools"]
 description: "Memento-based undo/redo utility that supports composition."
 build:
   render: "never"

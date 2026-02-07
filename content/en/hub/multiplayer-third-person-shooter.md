@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/jasonswearingen/TPS-MP"
 godot_version: ["3"]
-genre: []
-category: ["Templates"]
+genre: ["3D", "TPS", "Shooter", "Multiplayer"]
+category: ["Templates", "Networking"]
 description: "Multiplayer third person shooter example project."
 build:
   render: "never"

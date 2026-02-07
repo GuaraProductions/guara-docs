@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://codeberg.org/Yeldham/librerama"
 godot_version: ["4"]
-genre: ["2D"]
+genre: ["2D", "Party", "Casual"]
 category: ["Games"]
 description: "A free/libre fast-paced arcade collection of mini-games."
 build:

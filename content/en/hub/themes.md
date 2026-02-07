@@ -3,9 +3,9 @@ title: "Themes"
 date: 2026-02-06
 draft: false
 external_link: "#themes"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Contents"]
+category: ["Contents", "Themes"]
 description: ""
 build:
   render: "never"

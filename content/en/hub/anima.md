@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/ceceppa/anima"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "UI"]
 description: "Run sequential and parallel animations with less code compared to Tween."
 build:
   render: "never"

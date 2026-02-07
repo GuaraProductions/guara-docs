@@ -5,8 +5,8 @@ draft: false
 external_link: "https://github.com/codevogel/godot_doctor"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
-description: "Um poderoso plugin de validação para Godot que detecta erros em cenas e recursos antes que atinjam o tempo de execução. Também suporta validação de tipo para `PackedScene`s."
+category: ["Plugins and scripts", "Testing"]
+description: "Plugin de validação que captura erros antes do runtime."
 build:
   render: "never"
   list: "always"

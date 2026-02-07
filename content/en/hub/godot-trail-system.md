@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/OBKF/Godot-Trail-System"
 godot_version: ["3"]
-genre: []
+genre: ["2D", "3D"]
 category: ["Plugins and scripts"]
 description: "Advanced 2D/3D trail system."
 build:

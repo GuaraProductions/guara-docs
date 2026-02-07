@@ -1,0 +1,13 @@
+---
+title: "Pocket Broomball"
+date: 2026-02-06
+draft: false
+external_link: "https://codeberg.org/dulvui/pocket-broomball/"
+godot_version: ["3"]
+genre: ["2D", "Sports", "Casual"]
+category: ["Games"]
+description: "Jogo de broomball mobile."
+build:
+  render: "never"
+  list: "always"
+---

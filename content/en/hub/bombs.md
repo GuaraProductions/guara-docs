@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/randyyaj/Bombs"
 godot_version: ["2"]
-genre: ["2D"]
+genre: ["2D", "Casual"]
 category: ["Games"]
 description: "Simple mobile game. You need to touch bombs to defuse them."
 build:

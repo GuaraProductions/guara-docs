@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/tavurth/godot-radial-menu"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "UI"]
 description: "A radial menu written in shader code for performance."
 build:
   render: "never"

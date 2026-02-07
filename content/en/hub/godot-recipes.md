@@ -5,7 +5,7 @@ draft: false
 external_link: "https://kidscancode.org/godot_recipes/3.x/"
 godot_version: ["unknown"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Tutorials"]
 description: "A large collection of tutorials and techniques, both big and small."
 build:
   render: "never"

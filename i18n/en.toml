@@ -60,3 +60,207 @@ other = "Audio"
 
 [tag_multiplayer]
 other = "Multiplayer"
+
+[tag_games]
+other = "Games"
+
+[tag_projects]
+other = "Projects"
+
+[tag_templates]
+other = "Templates"
+
+[tag_demos]
+other = "Demos"
+
+[tag_tutorials]
+other = "Tutorials"
+
+[tag_plugins_and_scripts]
+other = "Plugins and scripts"
+
+[tag_modules]
+other = "Modules"
+
+[tag_gdscript_c_editor_support]
+other = "GDScript/C# editor support"
+
+[tag_themes]
+other = "Themes"
+
+[tag_engine_themes]
+other = "Engine themes"
+
+[tag_syntax_themes]
+other = "Syntax themes"
+
+[tag_unofficial_godot_builds]
+other = "Unofficial Godot builds"
+
+[tag_bash_scripts]
+other = "Bash scripts"
+
+[tag_websites]
+other = "Websites"
+
+[tag_other]
+other = "Other"
+
+[tag_xr]
+other = "XR"
+
+[tag_action]
+other = "Action"
+
+[tag_adventure]
+other = "Adventure"
+
+[tag_ar]
+other = "AR"
+
+[tag_assets]
+other = "Assets"
+
+[tag_automation]
+other = "Automation"
+
+[tag_casual]
+other = "Casual"
+
+[tag_ci_cd]
+other = "CI/CD"
+
+[tag_co_op]
+other = "Co-op"
+
+[tag_contents]
+other = "Contents"
+
+[tag_educational]
+other = "Educational"
+
+[tag_editor_integrations]
+other = "Editor integrations"
+
+[tag_examples]
+other = "Examples"
+
+[tag_fps]
+other = "FPS"
+
+[tag_generator]
+other = "Generator"
+
+[tag_importer_exporter]
+other = "Importer/Exporter"
+
+[tag_isometric]
+other = "Isometric"
+
+[tag_localization]
+other = "Localization"
+
+[tag_metroidvania]
+other = "Metroidvania"
+
+[tag_music_rhythm]
+other = "Music/Rhythm"
+
+[tag_narrative]
+other = "Narrative"
+
+[tag_networking]
+other = "Networking"
+
+[tag_party]
+other = "Party"
+
+[tag_performance]
+other = "Performance"
+
+[tag_physics]
+other = "Physics"
+
+[tag_platformer]
+other = "Platformer"
+
+[tag_puzzle]
+other = "Puzzle"
+
+[tag_puzzle_platformer]
+other = "Puzzle-platformer"
+
+[tag_racing]
+other = "Racing"
+
+[tag_roguelike]
+other = "Roguelike"
+
+[tag_rpg]
+other = "RPG"
+
+[tag_rts]
+other = "RTS"
+
+[tag_sandbox]
+other = "Sandbox"
+
+[tag_shooter]
+other = "Shooter"
+
+[tag_side_scroller]
+other = "Side-scroller"
+
+[tag_simulation]
+other = "Simulation"
+
+[tag_singleplayer]
+other = "Singleplayer"
+
+[tag_sports]
+other = "Sports"
+
+[tag_strategy]
+other = "Strategy"
+
+[tag_testing]
+other = "Testing"
+
+[tag_top_down]
+other = "Top-down"
+
+[tag_tps]
+other = "TPS"
+
+[tag_turn_based]
+other = "Turn-based"
+
+[tag_vr]
+other = "VR"
+
+[tag_web_integration]
+other = "Web integration"
+
+[tag_2]
+other = "2"
+
+[tag_3]
+other = "3"
+
+[tag_4]
+other = "4"
+
+[tag_both]
+other = "Both (3 and 4)"
+
+[tag_gdnative]
+other = "GDNative"
+
+[tag_gde]
+other = "GDExtension"
+
+[tag_module]
+other = "Module"
+
+[tag_unknown]
+other = "Unknown"

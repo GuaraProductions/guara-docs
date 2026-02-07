@@ -80,7 +80,7 @@ other = "Tutoriais"
 other = "Plugins e scripts"
 
 [tag_modules]
-other = "Modulos"
+other = "Módulos"
 
 [tag_gdscript_c_editor_support]
 other = "Suporte de editor GDScript/C#"
@@ -95,7 +95,7 @@ other = "Temas do engine"
 other = "Temas de sintaxe"
 
 [tag_unofficial_godot_builds]
-other = "Builds nao oficiais do Godot"
+other = "Builds não oficiais do Godot"
 
 [tag_bash_scripts]
 other = "Scripts Bash"
@@ -108,3 +108,159 @@ other = "Outros"
 
 [tag_xr]
 other = "XR"
+
+[tag_action]
+other = "Ação"
+
+[tag_adventure]
+other = "Aventura"
+
+[tag_ar]
+other = "AR"
+
+[tag_assets]
+other = "Assets"
+
+[tag_automation]
+other = "Automação"
+
+[tag_casual]
+other = "Casual"
+
+[tag_ci_cd]
+other = "CI/CD"
+
+[tag_co_op]
+other = "Cooperativo"
+
+[tag_contents]
+other = "Conteúdos"
+
+[tag_educational]
+other = "Educacional"
+
+[tag_editor_integrations]
+other = "Integrações do editor"
+
+[tag_examples]
+other = "Exemplos"
+
+[tag_fps]
+other = "FPS"
+
+[tag_generator]
+other = "Geradores"
+
+[tag_importer_exporter]
+other = "Importador/Exportador"
+
+[tag_isometric]
+other = "Isométrico"
+
+[tag_localization]
+other = "Localização"
+
+[tag_metroidvania]
+other = "Metroidvania"
+
+[tag_music_rhythm]
+other = "Música/Ritmo"
+
+[tag_narrative]
+other = "Narrativa"
+
+[tag_networking]
+other = "Networking"
+
+[tag_party]
+other = "Festa"
+
+[tag_performance]
+other = "Performance"
+
+[tag_physics]
+other = "Física"
+
+[tag_platformer]
+other = "Plataforma"
+
+[tag_puzzle]
+other = "Quebra-cabeça"
+
+[tag_puzzle_platformer]
+other = "Plataforma com quebra-cabeça"
+
+[tag_racing]
+other = "Corrida"
+
+[tag_roguelike]
+other = "Roguelike"
+
+[tag_rpg]
+other = "RPG"
+
+[tag_rts]
+other = "RTS"
+
+[tag_sandbox]
+other = "Sandbox"
+
+[tag_shooter]
+other = "Tiro"
+
+[tag_side_scroller]
+other = "Lateral"
+
+[tag_simulation]
+other = "Simulação"
+
+[tag_singleplayer]
+other = "Singleplayer"
+
+[tag_sports]
+other = "Esportes"
+
+[tag_strategy]
+other = "Estratégia"
+
+[tag_testing]
+other = "Testes"
+
+[tag_top_down]
+other = "Top-down"
+
+[tag_tps]
+other = "TPS"
+
+[tag_turn_based]
+other = "Turn-based"
+
+[tag_vr]
+other = "VR"
+
+[tag_web_integration]
+other = "Integração web"
+
+[tag_2]
+other = "2"
+
+[tag_3]
+other = "3"
+
+[tag_4]
+other = "4"
+
+[tag_both]
+other = "Ambos (3 e 4)"
+
+[tag_gdnative]
+other = "GDNative"
+
+[tag_gde]
+other = "GDExtension"
+
+[tag_module]
+other = "Módulo"
+
+[tag_unknown]
+other = "Desconhecido"

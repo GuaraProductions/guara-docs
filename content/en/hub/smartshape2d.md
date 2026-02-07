@@ -4,9 +4,9 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/SirRamEsq/SmartShape2D"
 godot_version: ["4"]
-genre: []
-category: ["Plugins and scripts"]
-description: "A 2D terrain tool. *(Godot 3 and 4)*"
+genre: ["2D"]
+category: ["Plugins and scripts", "Generator"]
+description: "A 2D terrain tool. (Godot 3 and 4)"
 build:
   render: "never"
   list: "always"

@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/unvermuthet/godot-ndi"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Web integration"]
 description: "Integrates the NDI® SDK with Godot."
 build:
   render: "never"

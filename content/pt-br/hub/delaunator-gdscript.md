@@ -4,9 +4,9 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/hiulit/Delaunator-GDScript"
 godot_version: ["3"]
-genre: []
-category: ["Plugins and scripts"]
-description: "Uma biblioteca GDScript para triangulação de Delaunay de pontos 2D."
+genre: ["2D"]
+category: ["Plugins and scripts", "Generator"]
+description: "Biblioteca GDScript para triangulação de Delaunay de pontos 2D."
 build:
   render: "never"
   list: "always"

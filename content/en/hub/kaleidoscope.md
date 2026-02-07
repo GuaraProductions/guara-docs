@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/Elesh-Norn/kaleidoscope"
 godot_version: ["4"]
 genre: []
-category: ["Demos"]
+category: ["Demos", "Assets"]
 description: "A demo for interactive shaders in Godot."
 build:
   render: "never"

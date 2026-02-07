@@ -1,12 +1,12 @@
 ---
-title: "Godot Gif Getter"
+title: "Capturador de GIF Godot"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/you-win/godot-gif-getter"
-godot_version: ["3"]
+godot_version: ["3", "gdnative"]
 genre: []
-category: ["Plugins and scripts"]
-description: "Um utilitário no jogo para gravar e salvar GIFs (escrito em GDNative Rust)."
+category: ["Plugins and scripts", "Importer/Exporter"]
+description: "Utilitário para gravar e salvar GIFs."
 build:
   render: "never"
   list: "always"

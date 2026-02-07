@@ -1,12 +1,12 @@
 ---
-title: "Salto Circular"
+title: "Circle Jump"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/kidscancode/circle_jump"
 godot_version: ["3"]
-genre: ["2D"]
-category: ["Games"]
-description: "Jogo arcade para celular, viciante e divertido. Um tutorial de como fazer está disponível, para que você possa recriá-lo e aprender Godot."
+genre: ["2D", "Casual"]
+category: ["Games", "Tutorials"]
+description: "Jogo de arcade mobile viciante. Tutorial disponível para aprender Godot."
 build:
   render: "never"
   list: "always"

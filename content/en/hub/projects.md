@@ -3,9 +3,9 @@ title: "Projects"
 date: 2026-02-06
 draft: false
 external_link: "#projects"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Contents"]
+category: ["Contents", "Projects"]
 description: ""
 build:
   render: "never"

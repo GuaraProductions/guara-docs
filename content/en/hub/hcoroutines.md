@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/Inspiaaa/HCoroutines"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Automation"]
 description: "Powerful C# coroutine library for Godot."
 build:
   render: "never"

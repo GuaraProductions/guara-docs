@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/alessandrofama/wwise-godot-integration"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Audio"]
 description: "Wwise audio middleware integration."
 build:
   render: "never"

@@ -3,10 +3,10 @@ title: "Geany"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/haimat/GDScript-Geany"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["GDScript/C# editor support"]
-description: "Destaque de sintaxe."
+category: ["GDScript/C# editor support", "Editor integrations"]
+description: "Destaque de sintaxe para Geany."
 build:
   render: "never"
   list: "always"

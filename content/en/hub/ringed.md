@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/KOBUGE-Incubator/ringed"
 godot_version: ["2"]
-genre: ["2D"]
+genre: ["2D", "Shooter", "Top-down"]
 category: ["Games"]
 description: "Top-down shooter with extensive usage of light effects."
 build:

@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/didier-v/GodotNotificationCenter"
 godot_version: ["3"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "UI"]
 description: "A notification center."
 build:
   render: "never"

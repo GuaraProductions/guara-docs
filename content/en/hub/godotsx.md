@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/TheWalruzz/godot-sx"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Automation"]
 description: "Rx-like extensions for Godot's built-in signals."
 build:
   render: "never"

@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/ScyDev/Godot-Scripts"
 godot_version: ["unknown"]
-genre: []
-category: ["Plugins and scripts"]
+genre: ["2D"]
+category: ["Plugins and scripts", "Generator"]
 description: "Merge polygons."
 build:
   render: "never"

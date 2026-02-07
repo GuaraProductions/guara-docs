@@ -5,7 +5,7 @@ draft: false
 external_link: "https://kenyoni-software.github.io/godot-addons/addons/licenses"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Tools"]
 description: "Manage license and copyright for third party graphics, software or libraries. Group them into categories, add descriptions or web links."
 build:
   render: "never"

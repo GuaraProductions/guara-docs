@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/w84death/Tanks-of-Freedom"
 godot_version: ["2"]
-genre: ["2D"]
+genre: ["2D", "Isometric", "Strategy", "Turn-based"]
 category: ["Games"]
 description: "Free turn-based isometric strategy game."
 build:

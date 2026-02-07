@@ -5,8 +5,8 @@ draft: false
 external_link: "https://github.com/MikeSchulze/gdUnit4"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
-description: "Framework de Teste de Unidade para Godot."
+category: ["Plugins and scripts", "Testing"]
+description: "Framework de Testes Unitários para Godot."
 build:
   render: "never"
   list: "always"

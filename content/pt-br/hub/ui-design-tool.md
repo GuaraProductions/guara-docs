@@ -1,0 +1,13 @@
+---
+title: "Ferramenta Design UI"
+date: 2026-02-06
+draft: false
+external_link: "https://github.com/imjp94/UIDesignTool"
+godot_version: ["4"]
+genre: []
+category: ["Plugins and scripts", "UI"]
+description: "Workflow de design no editor."
+build:
+  render: "never"
+  list: "always"
+---

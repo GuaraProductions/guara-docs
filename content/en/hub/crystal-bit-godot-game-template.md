@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/crystal-bit/godot-game-template"
 godot_version: ["4"]
 genre: []
-category: ["Templates"]
+category: ["Templates", "CI/CD"]
 description: "Opinionated game template. It includes continuous integration, scene loading with graphic transitions and game pause handling."
 build:
   render: "never"

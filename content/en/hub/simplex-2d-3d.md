@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/OvermindDL1/Godot-Helpers"
 godot_version: ["unknown"]
-genre: []
-category: ["Plugins and scripts"]
+genre: ["2D", "3D"]
+category: ["Plugins and scripts", "Generator"]
 description: "Simplex deterministic noise functions."
 build:
   render: "never"

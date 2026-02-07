@@ -20,6 +20,9 @@
   {{- range (.Params.genre | default (slice)) -}}
     {{- $tagSet = merge $tagSet (dict . true) -}}
   {{- end -}}
+  {{- range (.Params.godot_version | default (slice)) -}}
+    {{- $tagSet = merge $tagSet (dict . true) -}}
+  {{- end -}}
 {{- end -}}
 {{- $translationMap := dict -}}
 {{- range $tag, $_ := $tagSet -}}

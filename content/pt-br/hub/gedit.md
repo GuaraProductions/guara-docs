@@ -3,10 +3,10 @@ title: "Gedit"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/haimat/GDScript-gedit"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["GDScript/C# editor support"]
-description: "Realce de sintaxe."
+category: ["GDScript/C# editor support", "Editor integrations"]
+description: "Destaque de sintaxe para Gedit."
 build:
   render: "never"
   list: "always"

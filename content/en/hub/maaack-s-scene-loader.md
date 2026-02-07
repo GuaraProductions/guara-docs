@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/Maaack/Godot-Scene-Loader"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "Importer/Exporter"]
 description: "Scene loader that includes a loading screen, progress bar, and error handling."
 build:
   render: "never"

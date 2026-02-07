@@ -1,12 +1,12 @@
 ---
-title: "godot-actions"
+title: "Ações Godot"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/bend-n/godot-actions"
-godot_version: []
+godot_version: ["unknown"]
 genre: []
-category: ["Other"]
-description: "Ações compostas para exportar, configurar e enviar projetos Godot para o itch.io através do Github Actions."
+category: ["Other", "CI/CD"]
+description: "Ações para exportar e publicar projetos no itch.io."
 build:
   render: "never"
   list: "always"

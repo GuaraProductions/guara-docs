@@ -4,8 +4,8 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/hoontee/godot-ni-mate-motion-capture"
 godot_version: ["3"]
-genre: []
-category: ["Plugins and scripts"]
+genre: ["3D"]
+category: ["Plugins and scripts", "Other"]
 description: "Animate Skeletons with a Microsoft Kinect sensor."
 build:
   render: "never"

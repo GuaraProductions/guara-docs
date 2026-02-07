@@ -3,9 +3,9 @@ title: "NativeDialogs"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/GodotExplorer/NativeDialogs"
-godot_version: ["unknown"]
+godot_version: ["unknown", "module"]
 genre: []
-category: ["Modules"]
+category: ["Modules", "UI"]
 description: "Using native dialogs in Godot."
 build:
   render: "never"

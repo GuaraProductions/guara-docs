@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 external_link: "https://github.com/henriquelalves/SimpleGodotCRTShader"
 godot_version: ["4"]
-genre: []
+genre: ["2D"]
 category: ["Plugins and scripts"]
 description: "A simple Godot shader that simulates CRT Displays."
 build:

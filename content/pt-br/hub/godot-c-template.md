@@ -1,12 +1,12 @@
 ---
-title: "Modelo C# para Godot"
+title: "Template C# Godot"
 date: 2026-02-06
 draft: false
 external_link: "https://github.com/CSharpGodotTools/Template"
 godot_version: ["4"]
-genre: []
-category: ["Templates"]
-description: "Modelo para projetos C# com cenas de UI, ferramentas de depuração visual, tweens simplificados, scripts de utilidade e um framework multiplayer ENet."
+genre: ["Multiplayer"]
+category: ["Templates", "Networking"]
+description: "Template para projetos C# com ferramentas visuais e rede."
 build:
   render: "never"
   list: "always"

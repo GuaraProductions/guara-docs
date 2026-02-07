@@ -5,7 +5,7 @@ draft: false
 external_link: "https://github.com/Inspiaaa/ThemeGen"
 godot_version: ["4"]
 genre: []
-category: ["Plugins and scripts"]
+category: ["Plugins and scripts", "UI"]
 description: "Easily create themes using GDScript code, allowing you to reuse styles, recombine them, and effortlessly reuse and share colours between components."
 build:
   render: "never"

@@ -8,9 +8,6 @@ DEFAULT_TARGET_DIR = os.path.join(BASE_DIR, "content", "pt-br", "hub")
 DEFAULT_MERGED_FILE = os.path.join(BASE_DIR, "merged-hub.md")
 DEFAULT_ORDER_FILE = os.path.join(BASE_DIR, "merged-hub-order.json")
 
-START_MARKER = "<!-- BEGIN FILE: {path} -->"
-END_MARKER = "<!-- END FILE -->"
-
 
 def gather_files(source_dir, include_index):
 	files = []
@@ -69,16 +66,6 @@ def split_documents(merged_file, target_dir, order_file):
 		count += 1
 
 	for line in all_lines:
-		if line.startswith("<!-- BEGIN FILE:") and line.endswith("-->"):
-			flush()
-			current_path = line.replace("<!-- BEGIN FILE:", "").replace("-->", "").strip()
-			buffer = []
-			continue
-		if line == END_MARKER:
-			flush()
-			current_path = None
-			buffer = []
-			continue
 		if current_path is not None:
 			buffer.append(line)
 

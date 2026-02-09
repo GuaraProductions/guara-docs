@@ -2,7 +2,7 @@
   <div class="header-container">
     <a href="{{ "/guara-docs" | relURL }}" class="site-logo">
       <img src="{{ "favicon-32x32.png" | relURL }}" alt="{{ .Site.Title }}" class="logo-icon">
-      {{ .Site.Title }}
+      <span class="site-title">{{ .Site.Title }}</span>
     </a>
 
     <nav class="header-links">
@@ -79,6 +79,17 @@
     color: var(--color-text-light);
     text-decoration: none;
     transition: transform 0.2s;
+  }
+
+  /* Hide textual site title on small screens; show on desktop */
+  .site-title {
+    display: none;
+  }
+
+  @media (min-width: 769px) {
+    .site-title {
+      display: inline-block;
+    }
   }
 
 .dark .header-main {

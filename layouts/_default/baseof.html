@@ -46,6 +46,16 @@
       width: 100%;
     }
 
+    /* Center main content in the viewport and constrain width for readability.
+       The wrapper sits inside `.content` (which keeps space for the fixed
+       sidebar). On desktop it uses ~65% of the viewport width; on small
+       screens it becomes full width. */
+    .content .content-wrapper {
+      width: 100%;
+      max-width: 65vw;
+      margin: 0 auto;
+    }
+
     .content--full {
       margin-left: 0;
     }
@@ -214,6 +224,7 @@
         transform: translateX(0);
       }
       .content { margin-left: 0; padding: 1.5rem; }
+      .content .content-wrapper { max-width: 100vw; padding: 0; }
     }
   </style>
 </head>
@@ -224,13 +235,15 @@
     {{ partial "sidebar.html" . }}
     
     <main class="content">
-      {{ if eq .Section "hub" }}
-        {{ block "main" . }}{{ end }}
-      {{ else }}
-      <article class="prose dark:prose-invert">
-        {{ block "main" . }}{{ end }}
-      </article>
-      {{ end }}
+      <div class="content-wrapper">
+        {{ if eq .Section "hub" }}
+          {{ block "main" . }}{{ end }}
+        {{ else }}
+          <article class="prose dark:prose-invert">
+            {{ block "main" . }}{{ end }}
+          </article>
+        {{ end }}
+      </div>
     </main>
   </div>
   

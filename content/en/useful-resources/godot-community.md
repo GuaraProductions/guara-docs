@@ -16,3 +16,4 @@ In the Godot community, there are excellent content creators who explain how to 
 * **Brackeys**: [youtube.com/@Brackeys](https://www.youtube.com/@Brackeys)
 * **FinePointCGI**: [youtube.com/@FinePointCGI](https://www.youtube.com/@FinePointCGI)
 * **16BitDev**: [youtube.com/@16bitdev](https://www.youtube.com/@16bitdev)
+* **BatteryAcidDev**: [youtube.com/@BatteryAcidDev](https://www.youtube.com/@BatteryAcidDev)

@@ -15,14 +15,4 @@ Na comunidade da Godot, existem ótimos produtores de conteúdo que explicam com
 * **CiaNCI Studio**: [youtube.com/@CiaNCIStudio](https://www.youtube.com/@CiaNCIStudio)
 * **Aprenda Godot (Lucas Arusiewicz)**: [youtube.com/@AprendaGodot](https://www.youtube.com/@AprendaGodot)
 * **Desenvolvendo Jogos (Playlist)**: [youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN](https://youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN&si=XjWAvlA59L4A04Ks)
-
-## Canais em Inglês
-
-* **GDQuest**: [youtube.com/@Gdquest](https://www.youtube.com/@Gdquest)
-* **HeartBeast**: [youtube.com/@uheartbeast](https://www.youtube.com/@uheartbeast)
-* **KidsCanCode**: [youtube.com/@Kidscancode](https://www.youtube.com/@Kidscancode)
-* **Godotneers**: [youtube.com/@godotneers](https://www.youtube.com/@godotneers)
-* **Ludonauta**: [youtube.com/@LudensLudonaut](https://www.youtube.com/@LudensLudonaut)
-* **Brackeys**: [youtube.com/@Brackeys](https://www.youtube.com/@Brackeys)
-* **FinePointCGI**: [youtube.com/@FinePointCGI](https://www.youtube.com/@FinePointCGI)
-* **16BitDev**: [youtube.com/@16bitdev](https://www.youtube.com/@16bitdev)
+* **Yatsura Games**: [youtube.com/@yatsuragames](https://www.youtube.com/@yatsuragames)

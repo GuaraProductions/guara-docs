@@ -24,7 +24,7 @@ Se você é novo na área, recomendamos seguir esta trilha de aprendizado:
 
 Escolha um tópico para explorar os recursos detalhados:
 
-### 🚀 [Começar na Programação](/recursos/comunidade-godot)
+### 🚀 [Começar na Programação](/recursos/comecar-na-programacao)
 Dê os seus primeiros passos no mundo do desenvolvimento! Aqui você encontra guias para construir uma base lógica sólida antes de colocar a mão na massa.
 
 ### 🤖 [Começar na Godot](/recursos/iniciar-no-godot)

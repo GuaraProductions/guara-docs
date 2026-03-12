@@ -24,16 +24,16 @@ If you are new to the field, we recommend following this learning path:
 
 Choose a topic to explore detailed resources:
 
-### 🚀 [Getting Started in Programming](/recursos/comunidade-godot)
+### 🚀 [Getting Started in Programming](/useful-resources/start_in_programming)
 Take your first steps in the world of development! Here you will find guides to build a solid logical foundation before getting hands-on.
 
-### 🤖 [Getting Started in Godot](/recursos/iniciar-no-godot)
+### 🤖 [Getting Started in Godot](/useful-resources/start_in_godot)
 Learn to master the engine's interface, understand the system of nodes and scenes, and discover how to turn your ideas into functional projects with practical tutorials.
 
-### 📦 [Game Resources](/recursos/material-para-jogos)
+### 📦 [Game Resources](/useful-resources/tools-for-games)
 Explore massive libraries of 2D, 3D, and audio assets. Everything you need to bring life and sound to your game using high-quality free materials.
 
 ---
 
 ## 📺 Community and Creators
-Check out our list of **[Recommended Channels](/recursos/comunidade-godot)**, featuring content creators in both Portuguese and English who teach everything from "Hello World" to advanced game mechanics.
+Check out our list of **[Recommended Channels](/useful-resources/godot-community)**, featuring content creators in both Portuguese and English who teach everything from "Hello World" to advanced game mechanics.

@@ -11,7 +11,7 @@ Na comunidade da Godot, existem ótimos produtores de conteúdo que explicam com
 
 * **Clécio Espindola GameDev**: [youtube.com/@clecioespindolagamedev](https://www.youtube.com/@clecioespindolagamedev)
 * **Marcial Lincoln**: [youtube.com/@MarcialLincoln](https://www.youtube.com/@MarcialLincoln)
-* **DevBandeira**: [youtube.com/@DevBandeira](https://www.youtube.com/@DevBandeira)
+* **TinyLoomStudio** (Antigo DevBandeira): [youtube.com/@TinyLoomStudio](https://www.youtube.com/@TinyLoomStudio)
 * **CiaNCI Studio**: [youtube.com/@CiaNCIStudio](https://www.youtube.com/@CiaNCIStudio)
 * **Aprenda Godot (Lucas Arusiewicz)**: [youtube.com/@AprendaGodot](https://www.youtube.com/@AprendaGodot)
 * **Desenvolvendo Jogos (Playlist)**: [youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN](https://youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN&si=XjWAvlA59L4A04Ks)

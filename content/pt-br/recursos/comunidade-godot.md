@@ -16,3 +16,4 @@ Na comunidade da Godot, existem ótimos produtores de conteúdo que explicam com
 * **Aprenda Godot (Lucas Arusiewicz)**: [youtube.com/@AprendaGodot](https://www.youtube.com/@AprendaGodot)
 * **Desenvolvendo Jogos (Playlist)**: [youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN](https://youtube.com/playlist?list=PLzjwaizNOg6Q5lLQc-Yf-EIj3WP3eVvCN&si=XjWAvlA59L4A04Ks)
 * **Yatsura Games**: [youtube.com/@yatsuragames](https://www.youtube.com/@yatsuragames)
+* **ZeeGameDev**: [youtube.com/@ZeeGameDev](https://www.youtube.com/@ZeeGameDev)

@@ -1,5 +1,9 @@
 <div class="sidebar-overlay" data-sidebar-overlay></div>
 <aside class="sidebar" id="site-sidebar" aria-hidden="true">
+  <a href="{{ "/guara-docs" | relURL }}" class="sidebar-mobile-brand" aria-label="{{ .Site.Title }}">
+    <img src="{{ "favicon-32x32.png" | relURL }}" alt="{{ .Site.Title }}" class="sidebar-mobile-brand-icon">
+    <span class="sidebar-mobile-brand-text">{{ .Site.Title }}</span>
+  </a>
   <nav>
     <ul class="nav-list">
       {{ $currentPage := . }}

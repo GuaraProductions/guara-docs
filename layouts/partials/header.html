@@ -6,43 +6,45 @@
     </a>
 
     <nav class="header-links">
-      {{ $current := . }}
-      {{ $translationMap := dict }}
-      {{ range $current.AllTranslations }}
-        {{ $translationMap = merge $translationMap (dict .Lang .RelPermalink) }}
-      {{ end }}
-      <label class="lang-select-label" for="lang-select">{{ T "language" | default "Language" }}</label>
-      <select
-        id="lang-select"
-        class="lang-select"
-        aria-label="{{ T "language" | default "Language" }}"
-        onchange="if (this.value) { window.location.href = this.value; }"
-      >
-        {{ range .Sites }}
-          {{ $lang := .Language.Lang }}
-          {{ $label := .Language.LanguageName | default $lang }}
-          {{ $target := index $translationMap $lang }}
-          {{ if not $target }}
-            {{ $target = .Home.RelPermalink }}
-          {{ end }}
-          <option value="{{ $target }}" {{ if eq $current.Site.Language.Lang $lang }}selected{{ end }}>
-            {{ $label }}
-          </option>
-        {{ end }}
-      </select>
       <button type="button" class="menu-toggle header-menu-toggle" aria-label="Toggle menu" aria-controls="site-sidebar" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true" class="menu-icon">
           <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
-      <a href="https://github.com/GuaraProductions/guara-docs" class="nav-btn github-btn" target="_blank" rel="noopener" aria-label="Guara Docs on GitHub">
-        {{ partial "icon" (dict "context" . "name" "fab github" "class" "header-github-svg") }}
-      </a>
+      <div class="header-actions">
+        {{ $current := . }}
+        {{ $translationMap := dict }}
+        {{ range $current.AllTranslations }}
+          {{ $translationMap = merge $translationMap (dict .Lang .RelPermalink) }}
+        {{ end }}
+        <label class="lang-select-label" for="lang-select">{{ T "language" | default "Language" }}</label>
+        <select
+          id="lang-select"
+          class="lang-select"
+          aria-label="{{ T "language" | default "Language" }}"
+          onchange="if (this.value) { window.location.href = this.value; }"
+        >
+          {{ range .Sites }}
+            {{ $lang := .Language.Lang }}
+            {{ $label := .Language.LanguageName | default $lang }}
+            {{ $target := index $translationMap $lang }}
+            {{ if not $target }}
+              {{ $target = .Home.RelPermalink }}
+            {{ end }}
+            <option value="{{ $target }}" {{ if eq $current.Site.Language.Lang $lang }}selected{{ end }}>
+              {{ $label }}
+            </option>
+          {{ end }}
+        </select>
+        <a href="https://github.com/GuaraProductions/guara-docs" class="nav-btn github-btn" target="_blank" rel="noopener" aria-label="Guara Docs on GitHub">
+          {{ partial "icon" (dict "context" . "name" "fab github" "class" "header-github-svg") }}
+        </a>
 
-      <button type="button" class="theme-toggle header-theme-toggle" aria-label="Toggle theme">
-        {{ partial "icon" (dict "context" . "name" "fas moon" "class" "theme-icon") }}
-        {{ partial "icon" (dict "context" . "name" "fas sun" "class" "theme-icon") }}
-      </button>
+        <button type="button" class="theme-toggle header-theme-toggle" aria-label="Toggle theme">
+          {{ partial "icon" (dict "context" . "name" "fas moon" "class" "theme-icon") }}
+          {{ partial "icon" (dict "context" . "name" "fas sun" "class" "theme-icon") }}
+        </button>
+      </div>
     </nav>
   </div>
 </header>
@@ -131,6 +133,13 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    margin-left: auto;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 
   .lang-select-label {
@@ -206,6 +215,26 @@
   @media (min-width: 769px) {
     .header-menu-toggle {
       display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 0 1rem;
+    }
+
+    .site-logo {
+      display: none;
+    }
+
+    .header-links {
+      width: 100%;
+      margin-left: 0;
+      justify-content: space-between;
+    }
+
+    .header-actions {
+      min-width: 0;
     }
   }
 

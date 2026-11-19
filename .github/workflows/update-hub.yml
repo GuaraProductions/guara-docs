@@ -1,0 +1,72 @@
+name: Weekly Hub Update
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC (06:00 BRT)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Hub prune and discovery
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python3 tools/update-hub.py
+
+      - name: Check for changes
+        id: git_status
+        run: |
+          if [[ -n "$(git status --porcelain content/en/hub content/pt-br/hub)" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Hugo (validate build)
+        if: steps.git_status.outputs.changed == 'true'
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Validate Hugo build
+        if: steps.git_status.outputs.changed == 'true'
+        run: |
+          rm -rf themes/tailbliss/content
+          hugo --gc --minify
+
+      - name: Create Pull Request
+        if: steps.git_status.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="chore/weekly-hub-update-$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add content/en/hub content/pt-br/hub
+          git commit -m "chore(hub): weekly prune and plugin discovery"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore(hub): weekly Hub update ($(date -u +%Y-%m-%d))" \
+            --body "Automated weekly Hub maintenance (pruned dead/archived entries and added curated Godot 4 plugins)."

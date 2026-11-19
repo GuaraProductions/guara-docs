@@ -230,11 +230,36 @@ def discover_candidates(existing_urls: set[str], existing_slugs: set[str]) -> li
     return candidates
 
 
+def select_gemini_model(api_key: str) -> str:
+    """Pick an available Gemini Flash model supporting generateContent."""
+    status, payload = http_json(
+        f"https://generativelanguage.googleapis.com/v1beta/models?key={urllib.parse.quote(api_key)}"
+    )
+    if status != 200:
+        return "gemini-2.5-flash"
+
+    candidates: list[str] = []
+    for model in payload.get("models") or []:
+        name = str(model.get("name") or "").removeprefix("models/")
+        methods = model.get("supportedGenerationMethods") or []
+        if "generateContent" in methods and "flash" in name and "lite" not in name and "tts" not in name and "image" not in name:
+            candidates.append(name)
+
+    if not candidates:
+        return "gemini-2.5-flash"
+    # Prefer stable/latest flash models over older ones
+    candidates.sort(reverse=True)
+    return candidates[0]
+
+
 def curate_with_gemini(candidates: list[dict[str, object]]) -> list[dict[str, object]]:
     """Use Gemini API (free tier compatible) to select and translate top Godot 4 plugins."""
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key or not candidates:
         return []
+
+    model_name = select_gemini_model(api_key)
+    print(f"Using Gemini model: {model_name} ({len(candidates)} candidates)")
 
     prompt = (
         "You are curating a bilingual (English + Brazilian Portuguese) Godot 4 plugin Hub.\n"
@@ -250,7 +275,7 @@ def curate_with_gemini(candidates: list[dict[str, object]]) -> list[dict[str, ob
 
     endpoint = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-2.5-flash:generateContent?key={urllib.parse.quote(api_key)}"
+        f"{urllib.parse.quote(model_name)}:generateContent?key={urllib.parse.quote(api_key)}"
     )
     body = {
         "contents": [{"parts": [{"text": prompt}]}],

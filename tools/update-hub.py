@@ -79,8 +79,9 @@ def http_json(
     headers: dict[str, str] | None = None,
     body: dict[str, object] | None = None,
     retries: int = 2,
+    timeout: int = 20,
 ) -> tuple[int, dict[str, object]]:
-    """Perform an HTTP JSON request with simple retry on 429/5xx."""
+    """Perform an HTTP JSON request with simple retry on 429/5xx/timeouts."""
     req_headers = {"Accept": "application/json", "User-Agent": "guara-docs-hub-updater"}
     if headers:
         req_headers.update(headers)
@@ -91,14 +92,14 @@ def http_json(
     for attempt in range(retries + 1):
         req = urllib.request.Request(url, data=data, headers=req_headers, method=method)
         try:
-            with urllib.request.urlopen(req, timeout=20) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return resp.status, json.loads(resp.read().decode("utf-8"))
         except urllib.error.HTTPError as err:
             if err.code in {429, 500, 502, 503, 504} and attempt < retries:
                 time.sleep(2 ** (attempt + 1))
                 continue
             return err.code, {}
-        except urllib.error.URLError:
+        except (urllib.error.URLError, TimeoutError):
             if attempt < retries:
                 time.sleep(2)
                 continue
@@ -230,26 +231,36 @@ def discover_candidates(existing_urls: set[str], existing_slugs: set[str]) -> li
     return candidates
 
 
-def select_gemini_model(api_key: str) -> str:
-    """Pick an available Gemini Flash model supporting generateContent."""
+def select_gemini_models(api_key: str) -> list[str]:
+    """Return an ordered list of available Gemini Flash models supporting generateContent."""
+    preferred = [
+        "gemini-flash-latest",
+        "gemini-3.8-flash",
+        "gemini-3.7-flash",
+        "gemini-3.6-flash",
+        "gemini-3.5-flash",
+        "gemini-2.5-flash",
+        "gemini-flash-lite-latest",
+    ]
     status, payload = http_json(
         f"https://generativelanguage.googleapis.com/v1beta/models?key={urllib.parse.quote(api_key)}"
     )
     if status != 200:
-        return "gemini-2.5-flash"
+        return preferred[:3]
 
-    candidates: list[str] = []
+    excluded = ("preview", "omni", "tts", "image", "transcribe", "robotics", "computer-use")
+    available: set[str] = set()
     for model in payload.get("models") or []:
         name = str(model.get("name") or "").removeprefix("models/")
         methods = model.get("supportedGenerationMethods") or []
-        if "generateContent" in methods and "flash" in name and "lite" not in name and "tts" not in name and "image" not in name:
-            candidates.append(name)
+        if "generateContent" in methods and "flash" in name and not any(x in name for x in excluded):
+            available.add(name)
 
-    if not candidates:
-        return "gemini-2.5-flash"
-    # Prefer stable/latest flash models over older ones
-    candidates.sort(reverse=True)
-    return candidates[0]
+    ordered = [m for m in preferred if m in available]
+    for m in sorted(available, reverse=True):
+        if m not in ordered:
+            ordered.append(m)
+    return ordered or preferred[:3]
 
 
 def curate_with_gemini(candidates: list[dict[str, object]]) -> list[dict[str, object]]:
@@ -257,9 +268,6 @@ def curate_with_gemini(candidates: list[dict[str, object]]) -> list[dict[str, ob
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key or not candidates:
         return []
-
-    model_name = select_gemini_model(api_key)
-    print(f"Using Gemini model: {model_name} ({len(candidates)} candidates)")
 
     prompt = (
         "You are curating a bilingual (English + Brazilian Portuguese) Godot 4 plugin Hub.\n"
@@ -273,18 +281,30 @@ def curate_with_gemini(candidates: list[dict[str, object]]) -> list[dict[str, ob
         f"Candidates:\n{json.dumps(candidates, ensure_ascii=False)}"
     )
 
-    endpoint = (
-        "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"{urllib.parse.quote(model_name)}:generateContent?key={urllib.parse.quote(api_key)}"
-    )
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.2},
     }
-    status, payload = http_json(endpoint, method="POST", body=body, retries=2)
-    if status != 200:
-        print(f"Gemini API returned HTTP {status}; skipping discovery additions.")
-        return []
+
+    for model_name in select_gemini_models(api_key)[:4]:
+        print(f"Trying Gemini model: {model_name} ({len(candidates)} candidates)")
+        endpoint = (
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{urllib.parse.quote(model_name)}:generateContent?key={urllib.parse.quote(api_key)}"
+        )
+        status, payload = http_json(endpoint, method="POST", body=body, retries=1, timeout=60)
+        if status == 200:
+            try:
+                text = payload["candidates"][0]["content"]["parts"][0]["text"]
+                parsed = json.loads(text)
+                return list(parsed.get("selected") or [])
+            except (KeyError, IndexError, json.JSONDecodeError, TypeError):
+                print(f"Failed to parse JSON from {model_name}; trying next model.")
+                continue
+        print(f"Gemini model {model_name} returned HTTP {status}; trying next model.")
+
+    print("All Gemini candidate models failed; skipping discovery additions.")
+    return []
 
     try:
         text = payload["candidates"][0]["content"]["parts"][0]["text"]
@@ -326,10 +346,15 @@ def render_entry(
     )
 
 
-def add_selected_entries(selected: list[dict[str, object]], dry_run: bool) -> list[str]:
+def add_selected_entries(
+    selected: list[dict[str, object]],
+    candidates: list[dict[str, object]],
+    dry_run: bool,
+) -> list[str]:
     """Write validated bilingual Hub markdown pairs for selected plugins."""
     added: list[str] = []
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    candidate_urls = {normalize_url(str(c.get("url") or "")) for c in candidates}
 
     for item in selected:
         slug = slugify(str(item.get("slug") or item.get("title") or ""))
@@ -341,6 +366,8 @@ def add_selected_entries(selected: list[dict[str, object]], dry_run: bool) -> li
         categories = [c for c in (item.get("category") or []) if c in ALLOWED_CATEGORIES] or ["Plugins and scripts"]
 
         if not title or not url or not desc_en or not desc_pt:
+            continue
+        if normalize_url(url) not in candidate_urls:
             continue
         en_path = EN_HUB / f"{slug}.md"
         pt_path = PT_HUB / f"{slug}.md"
@@ -399,7 +426,7 @@ def main() -> int:
 
     candidates = discover_candidates(existing_urls, existing_slugs)
     selected = curate_with_gemini(candidates)
-    added = add_selected_entries(selected, args.dry_run)
+    added = add_selected_entries(selected, candidates, args.dry_run)
 
     verify_parity()
 
